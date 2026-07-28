@@ -687,6 +687,91 @@ function HistoryCard({ entry, index }: { entry: HistoryEntry; index: number }) {
   );
 }
 
+const OPENROUTER_API_KEY = "REDACTED_OPENROUTER_KEY";
+
+async function solveQuestionDirectly(
+  questionText: string,
+  subject: string,
+  topic: string
+): Promise<string> {
+  const url = "https://openrouter.ai/api/v1/chat/completions";
+  const systemMsg = "You are an expert JEE (IIT-JEE / JEE Advanced) tutor with deep knowledge of NCERT textbooks, H.C. Verma (Concepts of Physics), R.D. Sharma, S.L. Loney, Cengage, and 20 years of JEE past papers. When solving a question, follow this EXACT format:\n\n**THOUGHT PROCESS**\nThink aloud: identify what concept or formula applies, why, and any traps in the question.\n\n**CONCEPT**\nState the core principle, theorem, or formula (mention the NCERT chapter or book reference if relevant).\n\n**SOLUTION**\n1. Step one with working\n2. Step two with working\n3. Continue until final value\n\n**ANSWER**\nState the final answer clearly with units.\n\n**JEE TIP**\nOne key insight, common mistake to avoid, or a shortcut used in JEE exams.\n\nBe precise, use correct physics/chemistry/math notation, and keep each section concise.";
+  const rawPrompt = `Subject: ${subject}\nTopic: ${topic}\n${questionText}`;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+      "HTTP-Referer": "https://caffeine.ai"
+    },
+    body: JSON.stringify({
+      model: "openai/gpt-oss-120b",
+      messages: [
+        { role: "system", content: systemMsg },
+        { role: "user", content: rawPrompt }
+      ],
+      max_tokens: 900
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error(`OpenRouter API error: ${response.statusText}`);
+  }
+  const data = await response.json();
+  const content = data?.choices?.[0]?.message?.content || data?.choices?.[0]?.message?.reasoning;
+  if (!content) {
+    throw new Error("Invalid response from OpenRouter API.");
+  }
+  return content;
+}
+
+async function solveQuestionWithImageDirectly(
+  questionText: string,
+  subject: string,
+  topic: string,
+  imageBase64: string,
+  mediaType: string
+): Promise<string> {
+  const url = "https://openrouter.ai/api/v1/chat/completions";
+  const systemMsg = "You are an expert JEE tutor with deep knowledge of NCERT, H.C. Verma, R.D. Sharma, Cengage, and 20 years of JEE past papers. Carefully read the image and solve the question using this EXACT format:\n\n**THOUGHT PROCESS**\nThink aloud: what concept applies, why, and any traps.\n\n**CONCEPT**\nCore principle or formula (mention NCERT chapter or book if relevant).\n\n**SOLUTION**\n1. Step with working\n2. Continue steps...\n\n**ANSWER**\nFinal answer with units.\n\n**JEE TIP**\nKey insight or common mistake to avoid.";
+  const rawPrompt = `Subject: ${subject}\nTopic: ${topic}\n${questionText}`;
+  const dataUrl = `data:${mediaType};base64,${imageBase64}`;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
+      "HTTP-Referer": "https://caffeine.ai"
+    },
+    body: JSON.stringify({
+      model: "meta-llama/llama-4-maverick",
+      messages: [
+        { role: "system", content: systemMsg },
+        {
+          role: "user",
+          content: [
+            { type: "text", text: rawPrompt },
+            { type: "image_url", image_url: { url: dataUrl } }
+          ]
+        }
+      ],
+      max_tokens: 900
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error(`OpenRouter API error: ${response.statusText}`);
+  }
+  const data = await response.json();
+  const content = data?.choices?.[0]?.message?.content || data?.choices?.[0]?.message?.reasoning;
+  if (!content) {
+    throw new Error("Invalid response from OpenRouter API.");
+  }
+  return content;
+}
+
 export default function SolverSection() {
   const { actor } = useActor();
   const { identity, login } = useInternetIdentity();
@@ -804,24 +889,39 @@ export default function SolverSection() {
     setAiResponse(null);
     setSolveError(null);
     try {
-      if (!actor) throw new Error("Backend not ready. Please try again.");
-
       const contextualQuestion = buildContextualQuestion(question);
 
       const callActor = async (): Promise<string> => {
-        if (capturedImages.length > 0) {
-          const { base64, mediaType } = await compressImageToBase64(
-            capturedImages[0].file,
-          );
-          return actor.solveQuestionWithImage(
-            contextualQuestion,
-            subject,
-            topic,
-            base64,
-            mediaType,
-          );
+        if (actor) {
+          if (capturedImages.length > 0) {
+            const { base64, mediaType } = await compressImageToBase64(
+              capturedImages[0].file,
+            );
+            return actor.solveQuestionWithImage(
+              contextualQuestion,
+              subject,
+              topic,
+              base64,
+              mediaType,
+            );
+          }
+          return actor.solveQuestion(contextualQuestion, subject, topic);
+        } else {
+          // Fallback to direct OpenRouter API calls from frontend
+          if (capturedImages.length > 0) {
+            const { base64, mediaType } = await compressImageToBase64(
+              capturedImages[0].file,
+            );
+            return solveQuestionWithImageDirectly(
+              contextualQuestion,
+              subject,
+              topic,
+              base64,
+              mediaType,
+            );
+          }
+          return solveQuestionDirectly(contextualQuestion, subject, topic);
         }
-        return actor.solveQuestion(contextualQuestion, subject, topic);
       };
 
       let response: string;
