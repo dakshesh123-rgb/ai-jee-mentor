@@ -1,6 +1,46 @@
+// In-memory store to track requests (persists per Cloudflare Edge node)
+const ipCache = new Map();
+
 export async function onRequestPost(context) {
     const { request, env } = context;
-    const apiKey = env.GEMINI_API_KEY || "REDACTED_API_KEY";
+    
+    // --- 1. Basic Rate Limiting ---
+    const ip = request.headers.get("cf-connecting-ip") || "unknown-ip";
+    const now = Date.now();
+    const WINDOW_MS = 60 * 1000; // 1 minute window
+    const MAX_REQUESTS = 3;      // Max 3 questions per minute per IP
+
+    let rateData = ipCache.get(ip);
+    if (!rateData) {
+        rateData = { count: 0, startTime: now };
+        ipCache.set(ip, rateData);
+    }
+
+    // Reset window if a minute has passed
+    if (now - rateData.startTime > WINDOW_MS) {
+        rateData.count = 0;
+        rateData.startTime = now;
+    }
+
+    rateData.count++;
+
+    if (rateData.count > MAX_REQUESTS) {
+        return Response.json(
+            { error: "Rate limit exceeded! Please wait a minute before asking another question to protect our AI quota." },
+            { status: 429 }
+        );
+    }
+
+    // Clean up old IP records every ~100 requests to prevent memory leaks
+    if (ipCache.size > 1000) {
+        ipCache.clear();
+    }
+    // --- End Rate Limiting ---
+
+    const apiKey = env.GEMINI_API_KEY;
+    if (!apiKey) {
+        return Response.json({ error: "Gemini API Key not configured" }, { status: 500 });
+    }
 
     try {
         const body = await request.json();
