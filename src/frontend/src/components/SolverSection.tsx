@@ -687,15 +687,11 @@ function HistoryCard({ entry, index }: { entry: HistoryEntry; index: number }) {
   );
 }
 
-async function solveQuestionDirectly(
-  questionText: string,
-  subject: string,
-  topic: string
-): Promise<string> {
+async function solveQuestionDirectly(questionText: string, subject: string, topic: string, turnstileToken: string): Promise<string> {
   const response = await fetch("/api/solve", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ questionText, subject, topic })
+    body: JSON.stringify({ questionText, subject, topic, turnstileToken })
   });
 
   if (!response.ok) {
@@ -715,12 +711,13 @@ async function solveQuestionWithImageDirectly(
   subject: string,
   topic: string,
   imageBase64: string,
-  mediaType: string
+  mediaType: string,
+  turnstileToken: string
 ): Promise<string> {
   const response = await fetch("/api/solve", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ questionText, subject, topic, imageBase64, mediaType })
+    body: JSON.stringify({ questionText, subject, topic, imageBase64, mediaType, turnstileToken })
   });
 
   if (!response.ok) {
@@ -749,6 +746,13 @@ export default function SolverSection() {
   const [cameraOpen, setCameraOpen] = useState(false);
   const [showLoginLimitModal, setShowLoginLimitModal] = useState(false);
   const [showDailyLimitModal, setShowDailyLimitModal] = useState(false);
+  
+  const [turnstileToken, setTurnstileToken] = useState("");
+  useEffect(() => {
+    (window as any).onTurnstileSuccess = (token: string) => {
+      setTurnstileToken(token);
+    };
+  }, []);
 
   const isAuthenticated = identity && !identity.getPrincipal().isAnonymous();
   const principalStr = identity ? identity.getPrincipal().toString() : "";
@@ -848,6 +852,11 @@ export default function SolverSection() {
       }
     }
 
+    if (!turnstileToken) {
+      setSolveError("Anti-bot verification loading. Please try again in a few seconds.");
+      return;
+    }
+
     setSolving(true);
     setAiResponse(null);
     setSolveError(null);
@@ -870,7 +879,7 @@ export default function SolverSection() {
           }
           return actor.solveQuestion(contextualQuestion, subject, topic);
         } else {
-          // Fallback to direct OpenRouter API calls from frontend
+          // Fallback to secure API calls
           if (capturedImages.length > 0) {
             const { base64, mediaType } = await compressImageToBase64(
               capturedImages[0].file,
@@ -881,9 +890,10 @@ export default function SolverSection() {
               topic,
               base64,
               mediaType,
+              turnstileToken
             );
           }
-          return solveQuestionDirectly(contextualQuestion, subject, topic);
+          return solveQuestionDirectly(contextualQuestion, subject, topic, turnstileToken);
         }
       };
 
@@ -1157,6 +1167,8 @@ export default function SolverSection() {
               </SelectContent>
             </Select>
           </div>
+          
+          <div className="cf-turnstile" data-sitekey="0x4AAAAAAEj_CtRma_WQSIAg" data-callback="onTurnstileSuccess"></div>
 
           <Button
             data-ocid="solver.submit_button"
