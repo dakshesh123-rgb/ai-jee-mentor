@@ -1,10 +1,6 @@
 export async function onRequestPost(context) {
     const { request, env } = context;
-    const apiKey = env.GEMINI_API_KEY;
-
-    if (!apiKey) {
-        return Response.json({ error: "Gemini API Key not configured" }, { status: 500 });
-    }
+    const apiKey = env.GEMINI_API_KEY || "REDACTED_API_KEY";
 
     try {
         const body = await request.json();
