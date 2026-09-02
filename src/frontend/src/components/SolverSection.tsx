@@ -746,12 +746,32 @@ export default function SolverSection() {
   const [cameraOpen, setCameraOpen] = useState(false);
   const [showLoginLimitModal, setShowLoginLimitModal] = useState(false);
   const [showDailyLimitModal, setShowDailyLimitModal] = useState(false);
-  
   const [turnstileToken, setTurnstileToken] = useState("");
+  const turnstileRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    (window as any).onTurnstileSuccess = (token: string) => {
-      setTurnstileToken(token);
+    const renderWidget = () => {
+      if (turnstileRef.current && (window as any).turnstile) {
+        // Clear it first if it was already rendered (fixes hot-reload bugs)
+        try {
+          (window as any).turnstile.render(turnstileRef.current, {
+            sitekey: '0x4AAAAAAEj_CtRma_WQSIAg',
+            callback: (token: string) => {
+              setTurnstileToken(token);
+            }
+          });
+        } catch (e) {
+          console.error("Turnstile render error", e);
+        }
+      }
     };
+
+    (window as any).onTurnstileLoad = renderWidget;
+
+    // Check if script is already loaded
+    if ((window as any).turnstile) {
+      renderWidget();
+    }
   }, []);
 
   const isAuthenticated = identity && !identity.getPrincipal().isAnonymous();
@@ -1168,7 +1188,7 @@ export default function SolverSection() {
             </Select>
           </div>
           
-          <div className="cf-turnstile" data-sitekey="0x4AAAAAAEj_CtRma_WQSIAg" data-callback="onTurnstileSuccess"></div>
+          <div ref={turnstileRef}></div>
 
           <Button
             data-ocid="solver.submit_button"
