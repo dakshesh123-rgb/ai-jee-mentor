@@ -32,7 +32,7 @@ import {
   LogIn,
   LogOut,
 } from "lucide-react";
-import { type ReactElement, useEffect, useState } from "react";
+import { type ReactElement, useEffect, useRef, useState } from "react";
 
 const topicsBySubject: Record<string, string[]> = {
   Physics: [
