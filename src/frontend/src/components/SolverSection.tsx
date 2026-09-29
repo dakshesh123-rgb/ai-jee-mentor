@@ -687,11 +687,11 @@ function HistoryCard({ entry, index }: { entry: HistoryEntry; index: number }) {
   );
 }
 
-async function solveQuestionDirectly(questionText: string, subject: string, topic: string, turnstileToken: string): Promise<string> {
+async function solveQuestionDirectly(questionText: string, subject: string, topic: string): Promise<string> {
   const response = await fetch("/api/solve", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ questionText, subject, topic, turnstileToken })
+    body: JSON.stringify({ questionText, subject, topic })
   });
 
   if (!response.ok) {
@@ -711,13 +711,12 @@ async function solveQuestionWithImageDirectly(
   subject: string,
   topic: string,
   imageBase64: string,
-  mediaType: string,
-  turnstileToken: string
+  mediaType: string
 ): Promise<string> {
   const response = await fetch("/api/solve", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ questionText, subject, topic, imageBase64, mediaType, turnstileToken })
+    body: JSON.stringify({ questionText, subject, topic, imageBase64, mediaType })
   });
 
   if (!response.ok) {
@@ -746,59 +745,13 @@ export default function SolverSection() {
   const [cameraOpen, setCameraOpen] = useState(false);
   const [showLoginLimitModal, setShowLoginLimitModal] = useState(false);
   const [showDailyLimitModal, setShowDailyLimitModal] = useState(false);
-  const [turnstileToken, setTurnstileToken] = useState("");
-  const turnstileRef = useRef<HTMLDivElement>(null);
-  const turnstileWidgetIdRef = useRef<string | null>(null);
+  const answerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const renderWidget = () => {
-      if (turnstileRef.current && (window as any).turnstile) {
-        try {
-          if (turnstileWidgetIdRef.current !== null) {
-            try {
-              (window as any).turnstile.remove(turnstileWidgetIdRef.current);
-            } catch {}
-            turnstileWidgetIdRef.current = null;
-          }
-          turnstileRef.current.innerHTML = "";
-          const widgetId = (window as any).turnstile.render(turnstileRef.current, {
-            sitekey: '0x4AAAAAAEj_CtRma_WQSIAg',
-            callback: (token: string) => {
-              setTurnstileToken(token);
-              setSolveError(null);
-            },
-            'expired-callback': () => {
-              setTurnstileToken("");
-            },
-            'error-callback': () => {
-              console.warn("Turnstile error callback fired");
-            }
-          });
-          turnstileWidgetIdRef.current = widgetId;
-        } catch (e) {
-          console.error("Turnstile render error", e);
-        }
-      }
-    };
-
-    (window as any).__renderTurnstile = renderWidget;
-    (window as any).onTurnstileLoad = renderWidget;
-
-    // Check if script is already loaded
-    if ((window as any).turnstile || (window as any).__turnstileLoaded) {
-      renderWidget();
+    if (aiResponse && answerRef.current) {
+      answerRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-
-    return () => {
-      (window as any).__renderTurnstile = undefined;
-      if (turnstileWidgetIdRef.current !== null && (window as any).turnstile) {
-        try {
-          (window as any).turnstile.remove(turnstileWidgetIdRef.current);
-        } catch {}
-        turnstileWidgetIdRef.current = null;
-      }
-    };
-  }, []);
+  }, [aiResponse]);
 
   const isAuthenticated = identity && !identity.getPrincipal().isAnonymous();
   const principalStr = identity ? identity.getPrincipal().toString() : "";
@@ -898,11 +851,6 @@ export default function SolverSection() {
       }
     }
 
-    if (!turnstileToken) {
-      setSolveError("Please complete the Cloudflare verification checkbox below before submitting.");
-      return;
-    }
-
     setSolving(true);
     setAiResponse(null);
     setSolveError(null);
@@ -935,11 +883,10 @@ export default function SolverSection() {
               subject,
               topic,
               base64,
-              mediaType,
-              turnstileToken
+              mediaType
             );
           }
-          return solveQuestionDirectly(contextualQuestion, subject, topic, turnstileToken);
+          return solveQuestionDirectly(contextualQuestion, subject, topic);
         }
       };
 
@@ -1000,14 +947,6 @@ export default function SolverSection() {
     } finally {
       setRetrying(false);
       setSolving(false);
-      if (turnstileWidgetIdRef.current !== null && (window as any).turnstile) {
-        try {
-          (window as any).turnstile.reset(turnstileWidgetIdRef.current);
-        } catch (e) {
-          console.warn("Turnstile reset error", e);
-        }
-      }
-      setTurnstileToken("");
     }
   };
 
@@ -1221,8 +1160,6 @@ export default function SolverSection() {
               </SelectContent>
             </Select>
           </div>
-          
-          <div ref={turnstileRef}></div>
 
           <Button
             data-ocid="solver.submit_button"
@@ -1270,7 +1207,7 @@ export default function SolverSection() {
           )}
 
           {aiResponse && !solving && (
-            <div data-ocid="solver.success_state" className="mt-6">
+            <div ref={answerRef} data-ocid="solver.success_state" className="mt-6 scroll-mt-6">
               <div className="flex items-center gap-2 mb-4 pb-4 border-b border-border/50">
                 <Sparkles className="w-4 h-4 text-primary" />
                 <span className="text-sm font-semibold text-primary">

@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/FeaturesSection-B9NhavR0.js","assets/target-BP93iUgh.js","assets/SubjectsSection-DTWVQMrF.js","assets/badge-DsJqi8IL.js","assets/DashboardSection-DoZjJrf3.js","assets/PracticeSection-DuQ1I-Ge.js","assets/FutureSection-BZpXMdml.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/FeaturesSection-UmL-oZW_.js","assets/target-Ct77WyhO.js","assets/SubjectsSection-DmwOj3r7.js","assets/badge-Di03pJzM.js","assets/DashboardSection-BO7aEwvH.js","assets/PracticeSection-C4YR9_Jx.js","assets/FutureSection-BrBmFmhw.js"])))=>i.map(i=>d[i]);
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
@@ -42619,11 +42619,11 @@ function HistoryCard({ entry, index: index2 }) {
     }
   );
 }
-async function solveQuestionDirectly(questionText, subject, topic, turnstileToken) {
+async function solveQuestionDirectly(questionText, subject, topic) {
   const response = await fetch("/api/solve", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ questionText, subject, topic, turnstileToken })
+    body: JSON.stringify({ questionText, subject, topic })
   });
   if (!response.ok) {
     const err = await response.json().catch(() => ({}));
@@ -42635,11 +42635,11 @@ async function solveQuestionDirectly(questionText, subject, topic, turnstileToke
   }
   return data.text;
 }
-async function solveQuestionWithImageDirectly(questionText, subject, topic, imageBase64, mediaType, turnstileToken) {
+async function solveQuestionWithImageDirectly(questionText, subject, topic, imageBase64, mediaType) {
   const response = await fetch("/api/solve", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ questionText, subject, topic, imageBase64, mediaType, turnstileToken })
+    body: JSON.stringify({ questionText, subject, topic, imageBase64, mediaType })
   });
   if (!response.ok) {
     const err = await response.json().catch(() => ({}));
@@ -42665,56 +42665,12 @@ function SolverSection() {
   const [cameraOpen, setCameraOpen] = reactExports.useState(false);
   const [showLoginLimitModal, setShowLoginLimitModal] = reactExports.useState(false);
   const [showDailyLimitModal, setShowDailyLimitModal] = reactExports.useState(false);
-  const [turnstileToken, setTurnstileToken] = reactExports.useState("");
-  const turnstileRef = reactExports.useRef(null);
-  const turnstileWidgetIdRef = reactExports.useRef(null);
+  const answerRef = reactExports.useRef(null);
   reactExports.useEffect(() => {
-    const renderWidget = () => {
-      if (turnstileRef.current && window.turnstile) {
-        try {
-          if (turnstileWidgetIdRef.current !== null) {
-            try {
-              window.turnstile.remove(turnstileWidgetIdRef.current);
-            } catch {
-            }
-            turnstileWidgetIdRef.current = null;
-          }
-          turnstileRef.current.innerHTML = "";
-          const widgetId = window.turnstile.render(turnstileRef.current, {
-            sitekey: "0x4AAAAAAEj_CtRma_WQSIAg",
-            callback: (token) => {
-              setTurnstileToken(token);
-              setSolveError(null);
-            },
-            "expired-callback": () => {
-              setTurnstileToken("");
-            },
-            "error-callback": () => {
-              console.warn("Turnstile error callback fired");
-            }
-          });
-          turnstileWidgetIdRef.current = widgetId;
-        } catch (e) {
-          console.error("Turnstile render error", e);
-        }
-      }
-    };
-    window.__renderTurnstile = renderWidget;
-    window.onTurnstileLoad = renderWidget;
-    if (window.turnstile || window.__turnstileLoaded) {
-      renderWidget();
+    if (aiResponse && answerRef.current) {
+      answerRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
-    return () => {
-      window.__renderTurnstile = void 0;
-      if (turnstileWidgetIdRef.current !== null && window.turnstile) {
-        try {
-          window.turnstile.remove(turnstileWidgetIdRef.current);
-        } catch {
-        }
-        turnstileWidgetIdRef.current = null;
-      }
-    };
-  }, []);
+  }, [aiResponse]);
   const isAuthenticated = identity && !identity.getPrincipal().isAnonymous();
   const principalStr = identity ? identity.getPrincipal().toString() : "";
   const [anonymousUses, setAnonymousUses] = reactExports.useState(() => {
@@ -42806,10 +42762,6 @@ Current question: ${rawQuestion}`;
         return;
       }
     }
-    if (!turnstileToken) {
-      setSolveError("Please complete the Cloudflare verification checkbox below before submitting.");
-      return;
-    }
     setSolving(true);
     setAiResponse(null);
     setSolveError(null);
@@ -42840,11 +42792,10 @@ Current question: ${rawQuestion}`;
               subject,
               topic,
               base64,
-              mediaType,
-              turnstileToken
+              mediaType
             );
           }
-          return solveQuestionDirectly(contextualQuestion, subject, topic, turnstileToken);
+          return solveQuestionDirectly(contextualQuestion, subject, topic);
         }
       };
       let response;
@@ -42901,14 +42852,6 @@ Current question: ${rawQuestion}`;
     } finally {
       setRetrying(false);
       setSolving(false);
-      if (turnstileWidgetIdRef.current !== null && window.turnstile) {
-        try {
-          window.turnstile.reset(turnstileWidgetIdRef.current);
-        } catch (e) {
-          console.warn("Turnstile reset error", e);
-        }
-      }
-      setTurnstileToken("");
     }
   };
   const handleOpenCamera = async () => {
@@ -43086,7 +43029,6 @@ Current question: ${rawQuestion}`;
             /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: (subject ? topicsBySubject[subject] : []).map((t) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: t, children: t }, t)) })
           ] })
         ] }),
-        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref: turnstileRef }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           Button,
           {
@@ -43122,7 +43064,7 @@ Current question: ${rawQuestion}`;
             children: solveError
           }
         ),
-        aiResponse && !solving && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { "data-ocid": "solver.success_state", className: "mt-6", children: [
+        aiResponse && !solving && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { ref: answerRef, "data-ocid": "solver.success_state", className: "mt-6 scroll-mt-6", children: [
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 mb-4 pb-4 border-b border-border/50", children: [
             /* @__PURE__ */ jsxRuntimeExports.jsx(Sparkles, { className: "w-4 h-4 text-primary" }),
             /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-sm font-semibold text-primary", children: "AI Solution" })
@@ -43710,12 +43652,12 @@ function PrivacyPolicy() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(Footer$1, {})
   ] });
 }
-const MarqueeStrip = reactExports.lazy(() => __vitePreload(() => import("./MarqueeStrip-Btbh71zl.js"), true ? [] : void 0));
-const FeaturesSection = reactExports.lazy(() => __vitePreload(() => import("./FeaturesSection-B9NhavR0.js"), true ? __vite__mapDeps([0,1]) : void 0));
-const SubjectsSection = reactExports.lazy(() => __vitePreload(() => import("./SubjectsSection-DTWVQMrF.js"), true ? __vite__mapDeps([2,3]) : void 0));
-const DashboardSection = reactExports.lazy(() => __vitePreload(() => import("./DashboardSection-DoZjJrf3.js"), true ? __vite__mapDeps([4,1]) : void 0));
-const PracticeSection = reactExports.lazy(() => __vitePreload(() => import("./PracticeSection-DuQ1I-Ge.js"), true ? __vite__mapDeps([5,3]) : void 0));
-const FutureSection = reactExports.lazy(() => __vitePreload(() => import("./FutureSection-BZpXMdml.js"), true ? __vite__mapDeps([6,3]) : void 0));
+const MarqueeStrip = reactExports.lazy(() => __vitePreload(() => import("./MarqueeStrip-BUgn5elG.js"), true ? [] : void 0));
+const FeaturesSection = reactExports.lazy(() => __vitePreload(() => import("./FeaturesSection-UmL-oZW_.js"), true ? __vite__mapDeps([0,1]) : void 0));
+const SubjectsSection = reactExports.lazy(() => __vitePreload(() => import("./SubjectsSection-DmwOj3r7.js"), true ? __vite__mapDeps([2,3]) : void 0));
+const DashboardSection = reactExports.lazy(() => __vitePreload(() => import("./DashboardSection-BO7aEwvH.js"), true ? __vite__mapDeps([4,1]) : void 0));
+const PracticeSection = reactExports.lazy(() => __vitePreload(() => import("./PracticeSection-C4YR9_Jx.js"), true ? __vite__mapDeps([5,3]) : void 0));
+const FutureSection = reactExports.lazy(() => __vitePreload(() => import("./FutureSection-BrBmFmhw.js"), true ? __vite__mapDeps([6,3]) : void 0));
 const Footer = reactExports.lazy(() => __vitePreload(() => Promise.resolve().then(() => Footer$2), true ? void 0 : void 0));
 function HomePage() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background text-foreground", children: [

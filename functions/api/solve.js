@@ -14,14 +14,22 @@ export async function onRequestOptions() {
     });
 }
 
+// Resilient fallback chain of high-performing Gemini models
+const CANDIDATE_MODELS = [
+    "gemini-3.5-flash-lite",
+    "gemini-3-flash-preview",
+    "gemini-2.5-flash",
+    "gemini-3.5-flash"
+];
+
 export async function onRequestPost(context) {
     const { request, env } = context;
     
-    // --- 1. Basic Rate Limiting (Secondary Protection) ---
+    // --- 1. IP Rate Limiting ---
     const ip = request.headers.get("cf-connecting-ip") || "unknown-ip";
     const now = Date.now();
     const WINDOW_MS = 60 * 1000;
-    const MAX_REQUESTS = 5;
+    const MAX_REQUESTS = 6;
 
     let rateData = ipCache.get(ip);
     if (!rateData) {
@@ -36,7 +44,7 @@ export async function onRequestPost(context) {
 
     if (rateData.count > MAX_REQUESTS) {
         return Response.json(
-            { error: "Rate limit exceeded! Please wait a minute before asking another question." },
+            { error: "Rate limit reached. Please wait a minute before asking another question." },
             { status: 429, headers: corsHeaders }
         );
     }
@@ -45,37 +53,13 @@ export async function onRequestPost(context) {
 
     try {
         const body = await request.json();
-        const { questionText, subject, topic, imageBase64, mediaType, turnstileToken } = body;
+        const { questionText, subject, topic, imageBase64, mediaType } = body;
 
-        // --- 2. Cloudflare Turnstile Verification (Primary Protection) ---
-        const turnstileSecret = env.TURNSTILE_SECRET_KEY || "0x4AAAAAAEj_Cj_L5JNKwh8uqrC4Bjd1mlk";
-        if (turnstileSecret && turnstileToken) {
-            const formData = new FormData();
-            formData.append('secret', turnstileSecret);
-            formData.append('response', turnstileToken);
-            formData.append('remoteip', ip);
-
-            const tsResult = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-                body: formData,
-                method: 'POST',
-            });
-            const tsOutcome = await tsResult.json();
-
-            if (!tsOutcome.success) {
-                return Response.json({ error: "Anti-bot verification failed. Please complete the verification checkbox again." }, { status: 403, headers: corsHeaders });
-            }
-        } else if (!turnstileToken) {
-            return Response.json({ error: "Turnstile bot verification required. Please complete the verification checkbox." }, { status: 403, headers: corsHeaders });
-        }
-        // --- End Turnstile Verification ---
-
-        // --- 3. Gemini Processing ---
         const apiKey = env.GEMINI_API_KEY || "REDACTED_API_KEY";
         if (!apiKey) {
             return Response.json({ error: "Gemini API Key not configured" }, { status: 500, headers: corsHeaders });
         }
 
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${apiKey}`;
         const systemMsg = "You are an expert JEE (IIT-JEE / JEE Advanced) tutor with deep knowledge of NCERT textbooks, H.C. Verma (Concepts of Physics), R.D. Sharma, S.L. Loney, Cengage, and 20 years of JEE past papers. When solving a question, follow this EXACT format:\n\n**THOUGHT PROCESS**\nThink aloud: identify what concept or formula applies, why, and any traps in the question.\n\n**CONCEPT**\nState the core principle, theorem, or formula (mention the NCERT chapter or book reference if relevant).\n\n**SOLUTION**\n1. Step one with working\n2. Step two with working\n3. Continue until final value\n\n**ANSWER**\nState the final answer clearly with units.\n\n**JEE TIP**\nOne key insight, common mistake to avoid, or a shortcut used in JEE exams.\n\nBe precise, use correct physics/chemistry/math notation, and keep each section concise.";
         
         const rawPrompt = `Subject: ${subject || "General"}\nTopic: ${topic || "General"}\n\nQuestion:\n${questionText || ""}`;
@@ -92,25 +76,44 @@ export async function onRequestPost(context) {
             contents: [{ parts: parts }]
         };
 
-        const geminiResponse = await fetch(url, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-        });
+        let solvedText = null;
+        let lastError = null;
 
-        if (!geminiResponse.ok) {
-            const errBody = await geminiResponse.text();
-            return Response.json({ error: `Gemini API error: ${geminiResponse.statusText} - ${errBody}` }, { status: geminiResponse.status, headers: corsHeaders });
+        // Try models sequentially with automatic failover if one model experiences 503 high demand
+        for (const model of CANDIDATE_MODELS) {
+            try {
+                const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+                const geminiResponse = await fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload)
+                });
+
+                if (geminiResponse.ok) {
+                    const data = await geminiResponse.json();
+                    const content = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    if (content) {
+                        solvedText = content;
+                        break;
+                    }
+                } else {
+                    const errBody = await geminiResponse.text();
+                    lastError = `Model ${model} returned ${geminiResponse.status}: ${errBody}`;
+                    // Continue to next model in fallback chain
+                }
+            } catch (networkErr) {
+                lastError = `Network error on ${model}: ${networkErr.message}`;
+            }
         }
 
-        const data = await geminiResponse.json();
-        const content = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-
-        if (!content) {
-            return Response.json({ error: "Invalid response from Gemini API." }, { status: 500, headers: corsHeaders });
+        if (!solvedText) {
+            return Response.json(
+                { error: `AI service temporarily busy across all models. Please try again shortly. (${lastError})` },
+                { status: 503, headers: corsHeaders }
+            );
         }
 
-        return Response.json({ text: content }, { headers: corsHeaders });
+        return Response.json({ text: solvedText }, { headers: corsHeaders });
 
     } catch (e) {
         return Response.json({ error: e.message }, { status: 500, headers: corsHeaders });

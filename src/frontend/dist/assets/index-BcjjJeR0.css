@@ -1484,6 +1484,10 @@ h1,
   scroll-margin-bottom: 0.25rem;
 }
 
+.scroll-mt-6{
+  scroll-margin-top: 1.5rem;
+}
+
 .scroll-py-1{
   scroll-padding-top: 0.25rem;
   scroll-padding-bottom: 0.25rem;
