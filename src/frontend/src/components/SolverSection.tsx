@@ -857,52 +857,23 @@ export default function SolverSection() {
     try {
       const contextualQuestion = buildContextualQuestion(question);
 
-      const callActor = async (): Promise<string> => {
-        if (actor) {
-          if (capturedImages.length > 0) {
-            const { base64, mediaType } = await compressImageToBase64(
-              capturedImages[0].file,
-            );
-            return actor.solveQuestionWithImage(
-              contextualQuestion,
-              subject,
-              topic,
-              base64,
-              mediaType,
-            );
-          }
-          return actor.solveQuestion(contextualQuestion, subject, topic);
-        } else {
-          // Fallback to secure API calls
-          if (capturedImages.length > 0) {
-            const { base64, mediaType } = await compressImageToBase64(
-              capturedImages[0].file,
-            );
-            return solveQuestionWithImageDirectly(
-              contextualQuestion,
-              subject,
-              topic,
-              base64,
-              mediaType
-            );
-          }
-          return solveQuestionDirectly(contextualQuestion, subject, topic);
+      const getAiSolution = async (): Promise<string> => {
+        if (capturedImages.length > 0) {
+          const { base64, mediaType } = await compressImageToBase64(
+            capturedImages[0].file,
+          );
+          return solveQuestionWithImageDirectly(
+            contextualQuestion,
+            subject,
+            topic,
+            base64,
+            mediaType
+          );
         }
+        return solveQuestionDirectly(contextualQuestion, subject, topic);
       };
 
-      let response: string;
-      try {
-        response = await callActor();
-      } catch (e: unknown) {
-        if (isCanisterStoppedError(e)) {
-          setRetrying(true);
-          await new Promise((res) => setTimeout(res, RETRY_DELAY_MS));
-          setRetrying(false);
-          response = await callActor();
-        } else {
-          throw e;
-        }
-      }
+      const response = await getAiSolution();
 
       const parsed = parseAiResponse(response);
       if (parsed.startsWith("Error:")) {
@@ -1245,12 +1216,9 @@ export default function SolverSection() {
               got stuck.
             </li>
             <li>
-              <strong className="text-foreground">Model training:</strong> The
-              underlying model (openai/gpt-oss-120b via OpenRouter) is a
-              pre-trained large language model and cannot be retrained from
-              within this app. To fine-tune on JEE data, collect question-answer
-              pairs and use Hugging Face AutoTrain or the OpenAI fine-tuning
-              API.
+              <strong className="text-foreground">AI Intelligence:</strong> Powered
+              by Google Gemini with automated multi-model failover, fine-tuned to
+              provide verified, step-by-step NCERT and JEE Advanced solutions.
             </li>
           </ul>
         </div>

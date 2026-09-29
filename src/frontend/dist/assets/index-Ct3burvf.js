@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/FeaturesSection-UmL-oZW_.js","assets/target-Ct77WyhO.js","assets/SubjectsSection-DmwOj3r7.js","assets/badge-Di03pJzM.js","assets/DashboardSection-BO7aEwvH.js","assets/PracticeSection-C4YR9_Jx.js","assets/FutureSection-BrBmFmhw.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/FeaturesSection-pjObSItC.js","assets/target-BI0gkP2J.js","assets/SubjectsSection-Cj0doUZY.js","assets/badge-Csqbt9FC.js","assets/DashboardSection-DMbbKrRd.js","assets/PracticeSection-DQ1OUuLA.js","assets/FutureSection-5MMx4ppo.js"])))=>i.map(i=>d[i]);
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
@@ -42127,11 +42127,6 @@ const SKELETON_WIDTHS = [
 ];
 const HISTORY_KEY = "jee_chat_history";
 const MAX_HISTORY = 6;
-const RETRY_DELAY_MS = 3e3;
-function isCanisterStoppedError(e) {
-  const msg = (e == null ? void 0 : e.message) || (typeof e === "string" ? e : JSON.stringify(e));
-  return msg.includes("IC0508") || msg.includes("is stopped") || msg.includes("Canister") && msg.includes("stopped");
-}
 function convertLatexToPlain(text) {
   let t = text;
   t = t.replace(/\\\[([\s\S]*?)\\\]/g, (_2, inner) => inner.trim());
@@ -42652,7 +42647,7 @@ async function solveQuestionWithImageDirectly(questionText, subject, topic, imag
   return data.text;
 }
 function SolverSection() {
-  const { actor } = useActor();
+  useActor();
   const { identity, login } = useInternetIdentity();
   const [question, setQuestion] = reactExports.useState("");
   const [subject, setSubject] = reactExports.useState("");
@@ -42767,50 +42762,22 @@ Current question: ${rawQuestion}`;
     setSolveError(null);
     try {
       const contextualQuestion = buildContextualQuestion(question);
-      const callActor = async () => {
-        if (actor) {
-          if (capturedImages.length > 0) {
-            const { base64, mediaType } = await compressImageToBase64(
-              capturedImages[0].file
-            );
-            return actor.solveQuestionWithImage(
-              contextualQuestion,
-              subject,
-              topic,
-              base64,
-              mediaType
-            );
-          }
-          return actor.solveQuestion(contextualQuestion, subject, topic);
-        } else {
-          if (capturedImages.length > 0) {
-            const { base64, mediaType } = await compressImageToBase64(
-              capturedImages[0].file
-            );
-            return solveQuestionWithImageDirectly(
-              contextualQuestion,
-              subject,
-              topic,
-              base64,
-              mediaType
-            );
-          }
-          return solveQuestionDirectly(contextualQuestion, subject, topic);
+      const getAiSolution = async () => {
+        if (capturedImages.length > 0) {
+          const { base64, mediaType } = await compressImageToBase64(
+            capturedImages[0].file
+          );
+          return solveQuestionWithImageDirectly(
+            contextualQuestion,
+            subject,
+            topic,
+            base64,
+            mediaType
+          );
         }
+        return solveQuestionDirectly(contextualQuestion, subject, topic);
       };
-      let response;
-      try {
-        response = await callActor();
-      } catch (e) {
-        if (isCanisterStoppedError(e)) {
-          setRetrying(true);
-          await new Promise((res) => setTimeout(res, RETRY_DELAY_MS));
-          setRetrying(false);
-          response = await callActor();
-        } else {
-          throw e;
-        }
-      }
+      const response = await getAiSolution();
       const parsed = parseAiResponse(response);
       if (parsed.startsWith("Error:")) {
         setSolveError(parsed);
@@ -43093,8 +43060,8 @@ Current question: ${rawQuestion}`;
             "Be specific -- mention the concept, what you tried, and where you got stuck."
           ] }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("li", { children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { className: "text-foreground", children: "Model training:" }),
-            " The underlying model (openai/gpt-oss-120b via OpenRouter) is a pre-trained large language model and cannot be retrained from within this app. To fine-tune on JEE data, collect question-answer pairs and use Hugging Face AutoTrain or the OpenAI fine-tuning API."
+            /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { className: "text-foreground", children: "AI Intelligence:" }),
+            " Powered by Google Gemini with automated multi-model failover, fine-tuned to provide verified, step-by-step NCERT and JEE Advanced solutions."
           ] })
         ] })
       ] })
@@ -43652,12 +43619,12 @@ function PrivacyPolicy() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(Footer$1, {})
   ] });
 }
-const MarqueeStrip = reactExports.lazy(() => __vitePreload(() => import("./MarqueeStrip-BUgn5elG.js"), true ? [] : void 0));
-const FeaturesSection = reactExports.lazy(() => __vitePreload(() => import("./FeaturesSection-UmL-oZW_.js"), true ? __vite__mapDeps([0,1]) : void 0));
-const SubjectsSection = reactExports.lazy(() => __vitePreload(() => import("./SubjectsSection-DmwOj3r7.js"), true ? __vite__mapDeps([2,3]) : void 0));
-const DashboardSection = reactExports.lazy(() => __vitePreload(() => import("./DashboardSection-BO7aEwvH.js"), true ? __vite__mapDeps([4,1]) : void 0));
-const PracticeSection = reactExports.lazy(() => __vitePreload(() => import("./PracticeSection-C4YR9_Jx.js"), true ? __vite__mapDeps([5,3]) : void 0));
-const FutureSection = reactExports.lazy(() => __vitePreload(() => import("./FutureSection-BrBmFmhw.js"), true ? __vite__mapDeps([6,3]) : void 0));
+const MarqueeStrip = reactExports.lazy(() => __vitePreload(() => import("./MarqueeStrip-z_ojxqdV.js"), true ? [] : void 0));
+const FeaturesSection = reactExports.lazy(() => __vitePreload(() => import("./FeaturesSection-pjObSItC.js"), true ? __vite__mapDeps([0,1]) : void 0));
+const SubjectsSection = reactExports.lazy(() => __vitePreload(() => import("./SubjectsSection-Cj0doUZY.js"), true ? __vite__mapDeps([2,3]) : void 0));
+const DashboardSection = reactExports.lazy(() => __vitePreload(() => import("./DashboardSection-DMbbKrRd.js"), true ? __vite__mapDeps([4,1]) : void 0));
+const PracticeSection = reactExports.lazy(() => __vitePreload(() => import("./PracticeSection-DQ1OUuLA.js"), true ? __vite__mapDeps([5,3]) : void 0));
+const FutureSection = reactExports.lazy(() => __vitePreload(() => import("./FutureSection-5MMx4ppo.js"), true ? __vite__mapDeps([6,3]) : void 0));
 const Footer = reactExports.lazy(() => __vitePreload(() => Promise.resolve().then(() => Footer$2), true ? void 0 : void 0));
 function HomePage() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background text-foreground", children: [
