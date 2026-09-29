@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/FeaturesSection-qSKScjPY.js","assets/target-DjbToQd_.js","assets/SubjectsSection-ipBB4rou.js","assets/badge-V5_HwWGi.js","assets/DashboardSection-ippIRHwM.js","assets/PracticeSection-Gg8i8ozJ.js","assets/FutureSection-BBolJPzX.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/FeaturesSection-B9NhavR0.js","assets/target-BP93iUgh.js","assets/SubjectsSection-DTWVQMrF.js","assets/badge-DsJqi8IL.js","assets/DashboardSection-DoZjJrf3.js","assets/PracticeSection-DuQ1I-Ge.js","assets/FutureSection-BZpXMdml.js"])))=>i.map(i=>d[i]);
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
@@ -42619,79 +42619,37 @@ function HistoryCard({ entry, index: index2 }) {
     }
   );
 }
-const OPENROUTER_API_KEY = "REDACTED_OPENROUTER_KEY";
-async function solveQuestionDirectly(questionText, subject, topic) {
-  var _a3, _b3, _c2, _d2, _e2, _f2;
-  const url = "https://openrouter.ai/api/v1/chat/completions";
-  const systemMsg = "You are an expert JEE (IIT-JEE / JEE Advanced) tutor with deep knowledge of NCERT textbooks, H.C. Verma (Concepts of Physics), R.D. Sharma, S.L. Loney, Cengage, and 20 years of JEE past papers. When solving a question, follow this EXACT format:\n\n**THOUGHT PROCESS**\nThink aloud: identify what concept or formula applies, why, and any traps in the question.\n\n**CONCEPT**\nState the core principle, theorem, or formula (mention the NCERT chapter or book reference if relevant).\n\n**SOLUTION**\n1. Step one with working\n2. Step two with working\n3. Continue until final value\n\n**ANSWER**\nState the final answer clearly with units.\n\n**JEE TIP**\nOne key insight, common mistake to avoid, or a shortcut used in JEE exams.\n\nBe precise, use correct physics/chemistry/math notation, and keep each section concise.";
-  const rawPrompt = `Subject: ${subject}
-Topic: ${topic}
-${questionText}`;
-  const response = await fetch(url, {
+async function solveQuestionDirectly(questionText, subject, topic, turnstileToken) {
+  const response = await fetch("/api/solve", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
-      "HTTP-Referer": "https://caffeine.ai"
-    },
-    body: JSON.stringify({
-      model: "openai/gpt-oss-120b",
-      messages: [
-        { role: "system", content: systemMsg },
-        { role: "user", content: rawPrompt }
-      ],
-      max_tokens: 900
-    })
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ questionText, subject, topic, turnstileToken })
   });
   if (!response.ok) {
-    throw new Error(`OpenRouter API error: ${response.statusText}`);
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.error || `Server error: ${response.statusText}`);
   }
   const data = await response.json();
-  const content = ((_c2 = (_b3 = (_a3 = data == null ? void 0 : data.choices) == null ? void 0 : _a3[0]) == null ? void 0 : _b3.message) == null ? void 0 : _c2.content) || ((_f2 = (_e2 = (_d2 = data == null ? void 0 : data.choices) == null ? void 0 : _d2[0]) == null ? void 0 : _e2.message) == null ? void 0 : _f2.reasoning);
-  if (!content) {
-    throw new Error("Invalid response from OpenRouter API.");
+  if (!data.text) {
+    throw new Error("Invalid response from server.");
   }
-  return content;
+  return data.text;
 }
-async function solveQuestionWithImageDirectly(questionText, subject, topic, imageBase64, mediaType) {
-  var _a3, _b3, _c2, _d2, _e2, _f2;
-  const url = "https://openrouter.ai/api/v1/chat/completions";
-  const systemMsg = "You are an expert JEE tutor with deep knowledge of NCERT, H.C. Verma, R.D. Sharma, Cengage, and 20 years of JEE past papers. Carefully read the image and solve the question using this EXACT format:\n\n**THOUGHT PROCESS**\nThink aloud: what concept applies, why, and any traps.\n\n**CONCEPT**\nCore principle or formula (mention NCERT chapter or book if relevant).\n\n**SOLUTION**\n1. Step with working\n2. Continue steps...\n\n**ANSWER**\nFinal answer with units.\n\n**JEE TIP**\nKey insight or common mistake to avoid.";
-  const rawPrompt = `Subject: ${subject}
-Topic: ${topic}
-${questionText}`;
-  const dataUrl = `data:${mediaType};base64,${imageBase64}`;
-  const response = await fetch(url, {
+async function solveQuestionWithImageDirectly(questionText, subject, topic, imageBase64, mediaType, turnstileToken) {
+  const response = await fetch("/api/solve", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${OPENROUTER_API_KEY}`,
-      "HTTP-Referer": "https://caffeine.ai"
-    },
-    body: JSON.stringify({
-      model: "meta-llama/llama-4-maverick",
-      messages: [
-        { role: "system", content: systemMsg },
-        {
-          role: "user",
-          content: [
-            { type: "text", text: rawPrompt },
-            { type: "image_url", image_url: { url: dataUrl } }
-          ]
-        }
-      ],
-      max_tokens: 900
-    })
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ questionText, subject, topic, imageBase64, mediaType, turnstileToken })
   });
   if (!response.ok) {
-    throw new Error(`OpenRouter API error: ${response.statusText}`);
+    const err = await response.json().catch(() => ({}));
+    throw new Error(err.error || `Server error: ${response.statusText}`);
   }
   const data = await response.json();
-  const content = ((_c2 = (_b3 = (_a3 = data == null ? void 0 : data.choices) == null ? void 0 : _a3[0]) == null ? void 0 : _b3.message) == null ? void 0 : _c2.content) || ((_f2 = (_e2 = (_d2 = data == null ? void 0 : data.choices) == null ? void 0 : _d2[0]) == null ? void 0 : _e2.message) == null ? void 0 : _f2.reasoning);
-  if (!content) {
-    throw new Error("Invalid response from OpenRouter API.");
+  if (!data.text) {
+    throw new Error("Invalid response from server.");
   }
-  return content;
+  return data.text;
 }
 function SolverSection() {
   const { actor } = useActor();
@@ -42707,6 +42665,56 @@ function SolverSection() {
   const [cameraOpen, setCameraOpen] = reactExports.useState(false);
   const [showLoginLimitModal, setShowLoginLimitModal] = reactExports.useState(false);
   const [showDailyLimitModal, setShowDailyLimitModal] = reactExports.useState(false);
+  const [turnstileToken, setTurnstileToken] = reactExports.useState("");
+  const turnstileRef = reactExports.useRef(null);
+  const turnstileWidgetIdRef = reactExports.useRef(null);
+  reactExports.useEffect(() => {
+    const renderWidget = () => {
+      if (turnstileRef.current && window.turnstile) {
+        try {
+          if (turnstileWidgetIdRef.current !== null) {
+            try {
+              window.turnstile.remove(turnstileWidgetIdRef.current);
+            } catch {
+            }
+            turnstileWidgetIdRef.current = null;
+          }
+          turnstileRef.current.innerHTML = "";
+          const widgetId = window.turnstile.render(turnstileRef.current, {
+            sitekey: "0x4AAAAAAEj_CtRma_WQSIAg",
+            callback: (token) => {
+              setTurnstileToken(token);
+              setSolveError(null);
+            },
+            "expired-callback": () => {
+              setTurnstileToken("");
+            },
+            "error-callback": () => {
+              console.warn("Turnstile error callback fired");
+            }
+          });
+          turnstileWidgetIdRef.current = widgetId;
+        } catch (e) {
+          console.error("Turnstile render error", e);
+        }
+      }
+    };
+    window.__renderTurnstile = renderWidget;
+    window.onTurnstileLoad = renderWidget;
+    if (window.turnstile || window.__turnstileLoaded) {
+      renderWidget();
+    }
+    return () => {
+      window.__renderTurnstile = void 0;
+      if (turnstileWidgetIdRef.current !== null && window.turnstile) {
+        try {
+          window.turnstile.remove(turnstileWidgetIdRef.current);
+        } catch {
+        }
+        turnstileWidgetIdRef.current = null;
+      }
+    };
+  }, []);
   const isAuthenticated = identity && !identity.getPrincipal().isAnonymous();
   const principalStr = identity ? identity.getPrincipal().toString() : "";
   const [anonymousUses, setAnonymousUses] = reactExports.useState(() => {
@@ -42798,6 +42806,10 @@ Current question: ${rawQuestion}`;
         return;
       }
     }
+    if (!turnstileToken) {
+      setSolveError("Please complete the Cloudflare verification checkbox below before submitting.");
+      return;
+    }
     setSolving(true);
     setAiResponse(null);
     setSolveError(null);
@@ -42828,10 +42840,11 @@ Current question: ${rawQuestion}`;
               subject,
               topic,
               base64,
-              mediaType
+              mediaType,
+              turnstileToken
             );
           }
-          return solveQuestionDirectly(contextualQuestion, subject, topic);
+          return solveQuestionDirectly(contextualQuestion, subject, topic, turnstileToken);
         }
       };
       let response;
@@ -42888,6 +42901,14 @@ Current question: ${rawQuestion}`;
     } finally {
       setRetrying(false);
       setSolving(false);
+      if (turnstileWidgetIdRef.current !== null && window.turnstile) {
+        try {
+          window.turnstile.reset(turnstileWidgetIdRef.current);
+        } catch (e) {
+          console.warn("Turnstile reset error", e);
+        }
+      }
+      setTurnstileToken("");
     }
   };
   const handleOpenCamera = async () => {
@@ -43065,6 +43086,7 @@ Current question: ${rawQuestion}`;
             /* @__PURE__ */ jsxRuntimeExports.jsx(SelectContent, { children: (subject ? topicsBySubject[subject] : []).map((t) => /* @__PURE__ */ jsxRuntimeExports.jsx(SelectItem, { value: t, children: t }, t)) })
           ] })
         ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref: turnstileRef }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           Button,
           {
@@ -43688,12 +43710,12 @@ function PrivacyPolicy() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(Footer$1, {})
   ] });
 }
-const MarqueeStrip = reactExports.lazy(() => __vitePreload(() => import("./MarqueeStrip-DZBXBGml.js"), true ? [] : void 0));
-const FeaturesSection = reactExports.lazy(() => __vitePreload(() => import("./FeaturesSection-qSKScjPY.js"), true ? __vite__mapDeps([0,1]) : void 0));
-const SubjectsSection = reactExports.lazy(() => __vitePreload(() => import("./SubjectsSection-ipBB4rou.js"), true ? __vite__mapDeps([2,3]) : void 0));
-const DashboardSection = reactExports.lazy(() => __vitePreload(() => import("./DashboardSection-ippIRHwM.js"), true ? __vite__mapDeps([4,1]) : void 0));
-const PracticeSection = reactExports.lazy(() => __vitePreload(() => import("./PracticeSection-Gg8i8ozJ.js"), true ? __vite__mapDeps([5,3]) : void 0));
-const FutureSection = reactExports.lazy(() => __vitePreload(() => import("./FutureSection-BBolJPzX.js"), true ? __vite__mapDeps([6,3]) : void 0));
+const MarqueeStrip = reactExports.lazy(() => __vitePreload(() => import("./MarqueeStrip-Btbh71zl.js"), true ? [] : void 0));
+const FeaturesSection = reactExports.lazy(() => __vitePreload(() => import("./FeaturesSection-B9NhavR0.js"), true ? __vite__mapDeps([0,1]) : void 0));
+const SubjectsSection = reactExports.lazy(() => __vitePreload(() => import("./SubjectsSection-DTWVQMrF.js"), true ? __vite__mapDeps([2,3]) : void 0));
+const DashboardSection = reactExports.lazy(() => __vitePreload(() => import("./DashboardSection-DoZjJrf3.js"), true ? __vite__mapDeps([4,1]) : void 0));
+const PracticeSection = reactExports.lazy(() => __vitePreload(() => import("./PracticeSection-DuQ1I-Ge.js"), true ? __vite__mapDeps([5,3]) : void 0));
+const FutureSection = reactExports.lazy(() => __vitePreload(() => import("./FutureSection-BZpXMdml.js"), true ? __vite__mapDeps([6,3]) : void 0));
 const Footer = reactExports.lazy(() => __vitePreload(() => Promise.resolve().then(() => Footer$2), true ? void 0 : void 0));
 function HomePage() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background text-foreground", children: [

@@ -14,7 +14,16 @@
     </script>
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1716936005001303" crossorigin="anonymous"></script>
-    <script type="module" crossorigin src="/assets/index-DDdLqY5L.js"></script>
+    <script>
+      window.onTurnstileLoad = function() {
+        window.__turnstileLoaded = true;
+        if (typeof window.__renderTurnstile === 'function') {
+          window.__renderTurnstile();
+        }
+      };
+    </script>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit&onload=onTurnstileLoad" async defer></script>
+    <script type="module" crossorigin src="/assets/index-DV5EZ6SZ.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-6RX0NMuS.css">
   </head>
   <body>

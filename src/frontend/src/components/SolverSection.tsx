@@ -748,30 +748,56 @@ export default function SolverSection() {
   const [showDailyLimitModal, setShowDailyLimitModal] = useState(false);
   const [turnstileToken, setTurnstileToken] = useState("");
   const turnstileRef = useRef<HTMLDivElement>(null);
+  const turnstileWidgetIdRef = useRef<string | null>(null);
 
   useEffect(() => {
     const renderWidget = () => {
       if (turnstileRef.current && (window as any).turnstile) {
-        // Clear it first if it was already rendered (fixes hot-reload bugs)
         try {
-          (window as any).turnstile.render(turnstileRef.current, {
+          if (turnstileWidgetIdRef.current !== null) {
+            try {
+              (window as any).turnstile.remove(turnstileWidgetIdRef.current);
+            } catch {}
+            turnstileWidgetIdRef.current = null;
+          }
+          turnstileRef.current.innerHTML = "";
+          const widgetId = (window as any).turnstile.render(turnstileRef.current, {
             sitekey: '0x4AAAAAAEj_CtRma_WQSIAg',
             callback: (token: string) => {
               setTurnstileToken(token);
+              setSolveError(null);
+            },
+            'expired-callback': () => {
+              setTurnstileToken("");
+            },
+            'error-callback': () => {
+              console.warn("Turnstile error callback fired");
             }
           });
+          turnstileWidgetIdRef.current = widgetId;
         } catch (e) {
           console.error("Turnstile render error", e);
         }
       }
     };
 
+    (window as any).__renderTurnstile = renderWidget;
     (window as any).onTurnstileLoad = renderWidget;
 
     // Check if script is already loaded
-    if ((window as any).turnstile) {
+    if ((window as any).turnstile || (window as any).__turnstileLoaded) {
       renderWidget();
     }
+
+    return () => {
+      (window as any).__renderTurnstile = undefined;
+      if (turnstileWidgetIdRef.current !== null && (window as any).turnstile) {
+        try {
+          (window as any).turnstile.remove(turnstileWidgetIdRef.current);
+        } catch {}
+        turnstileWidgetIdRef.current = null;
+      }
+    };
   }, []);
 
   const isAuthenticated = identity && !identity.getPrincipal().isAnonymous();
@@ -873,7 +899,7 @@ export default function SolverSection() {
     }
 
     if (!turnstileToken) {
-      setSolveError("Anti-bot verification loading. Please try again in a few seconds.");
+      setSolveError("Please complete the Cloudflare verification checkbox below before submitting.");
       return;
     }
 
@@ -974,6 +1000,14 @@ export default function SolverSection() {
     } finally {
       setRetrying(false);
       setSolving(false);
+      if (turnstileWidgetIdRef.current !== null && (window as any).turnstile) {
+        try {
+          (window as any).turnstile.reset(turnstileWidgetIdRef.current);
+        } catch (e) {
+          console.warn("Turnstile reset error", e);
+        }
+      }
+      setTurnstileToken("");
     }
   };
 
