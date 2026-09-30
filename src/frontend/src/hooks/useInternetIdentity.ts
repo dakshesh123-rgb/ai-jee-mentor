@@ -3,6 +3,7 @@ import {
   type AuthClientCreateOptions,
   type AuthClientLoginOptions,
 } from "@dfinity/auth-client";
+import { Ed25519KeyIdentity } from "@dfinity/identity";
 import type { Identity } from "@icp-sdk/core/agent";
 import { DelegationIdentity, isDelegationValid } from "@icp-sdk/core/identity";
 import {
@@ -33,11 +34,16 @@ export type InternetIdentityContext = {
   /** Connect to Internet Identity to login the user. */
   login: () => void;
 
+  /** 1-click instant student account login (reliable across all mobile browsers & webviews). */
+  loginAsStudent: (name?: string) => void;
+
+  /** Display name if logged in as student */
+  studentName?: string;
+
   /** Clears the identity from the state and local storage. Effectively "logs the user out". */
   clear: () => void;
 
-  /** The loginStatus of the login process. Note: The login loginStatus is not affected when a stored
-   * identity is loaded on mount. */
+  /** The loginStatus of the login process. */
   loginStatus: Status;
 
   /** `loginStatus === "initializing"` */
@@ -68,30 +74,36 @@ const InternetIdentityReactContext = createContext<ProviderValue | undefined>(
 
 /**
  * Create the auth client with default options or options provided by the user.
+ * Gracefully handles missing canister IDs on Cloudflare edge deployments.
  */
 async function createAuthClient(
   createOptions?: AuthClientCreateOptions,
 ): Promise<AuthClient> {
-  const config = await loadConfig();
+  let ii_derivation_origin: string | undefined = undefined;
+  try {
+    const config = await loadConfig();
+    if (config?.ii_derivation_origin && config.ii_derivation_origin !== "undefined") {
+      ii_derivation_origin = config.ii_derivation_origin;
+    }
+  } catch {
+    // Non-canister edge runtime
+  }
+
   const options: AuthClientCreateOptions = {
     idleOptions: {
-      // Default behaviour of this hook is not to logout and reload window on identity expiration
       disableDefaultIdleCallback: true,
       disableIdle: true,
       ...createOptions?.idleOptions,
     },
-    loginOptions: {
-      derivationOrigin: config.ii_derivation_origin,
-    },
+    ...(ii_derivation_origin
+      ? { loginOptions: { derivationOrigin: ii_derivation_origin } }
+      : {}),
     ...createOptions,
   };
   const authClient = await AuthClient.create(options);
   return authClient;
 }
 
-/**
- * Helper function to set loginError state.
- */
 function assertProviderPresent(
   context: ProviderValue | undefined,
 ): asserts context is ProviderValue {
@@ -102,57 +114,28 @@ function assertProviderPresent(
   }
 }
 
-/**
- * Hook to access the internet identity as well as loginStatus along with
- * login and clear functions.
- */
 export const useInternetIdentity = (): InternetIdentityContext => {
   const context = useContext(InternetIdentityReactContext);
   assertProviderPresent(context);
   return context;
 };
 
-/**
- * The InternetIdentityProvider component makes the saved identity available
- * after page reloads. It also allows you to configure default options
- * for AuthClient and login.
- *
- *
- * @example
- * ```tsx
- * <InternetIdentityProvider>
- *   <App />
- * </InternetIdentityProvider>
- * ```
- */
 export function InternetIdentityProvider({
   children,
   createOptions,
 }: PropsWithChildren<{
-  /** The child components that the InternetIdentityProvider will wrap. This allows any child
-   * component to access the authentication context provided by the InternetIdentityProvider. */
   children: ReactNode;
-
-  /** Options for creating the {@link AuthClient}. See AuthClient documentation for list of options
-   *
-   * defaults to disabling the AuthClient idle handling (clearing identities
-   * from store and reloading the window on identity expiry). If that behaviour is preferred, set these settings:
-   *
-   * ```
-   * const options = {
-   *   idleOptions: {
-   *     disableDefaultIdleCallback: false,
-   *     disableIdle: false,
-   *   },
-   * }
-   * ```
-   */
   createOptions?: AuthClientCreateOptions;
 }>) {
-  const [authClient, setAuthClient] = useState<AuthClient | undefined>(
-    undefined,
-  );
+  const [authClient, setAuthClient] = useState<AuthClient | undefined>(undefined);
   const [identity, setIdentity] = useState<Identity | undefined>(undefined);
+  const [studentName, setStudentName] = useState<string | undefined>(() => {
+    try {
+      return localStorage.getItem("jee_student_name") || undefined;
+    } catch {
+      return undefined;
+    }
+  });
   const [loginStatus, setStatus] = useState<Status>("initializing");
   const [loginError, setError] = useState<Error | undefined>(undefined);
 
@@ -161,75 +144,108 @@ export function InternetIdentityProvider({
     setError(new Error(message));
   }, []);
 
-  const handleLoginSuccess = useCallback(() => {
-    const latestIdentity = authClient?.getIdentity();
-    if (!latestIdentity) {
-      setErrorMessage("Identity not found after successful login");
-      return;
-    }
-    setIdentity(latestIdentity);
-    setStatus("success");
-  }, [authClient, setErrorMessage]);
+  const loginAsStudent = useCallback((name?: string) => {
+    try {
+      setStatus("logging-in");
+      const chosenName = name?.trim() || "JEE Aspirant";
+      let studentIdentity: Identity;
 
-  const handleLoginError = useCallback(
-    (maybeError?: string) => {
-      setErrorMessage(maybeError ?? "Login failed");
-    },
-    [setErrorMessage],
-  );
+      const existingKey = localStorage.getItem("jee_student_key");
+      if (existingKey) {
+        try {
+          studentIdentity = Ed25519KeyIdentity.fromJSON(existingKey);
+        } catch {
+          const newKey = Ed25519KeyIdentity.generate();
+          localStorage.setItem("jee_student_key", JSON.stringify(newKey.toJSON()));
+          studentIdentity = newKey;
+        }
+      } else {
+        const newKey = Ed25519KeyIdentity.generate();
+        localStorage.setItem("jee_student_key", JSON.stringify(newKey.toJSON()));
+        studentIdentity = newKey;
+      }
 
-  const login = useCallback(() => {
-    if (!authClient) {
-      setErrorMessage(
-        "AuthClient is not initialized yet, make sure to call `login` on user interaction e.g. click.",
+      localStorage.setItem("jee_student_name", chosenName);
+      setStudentName(chosenName);
+      setIdentity(studentIdentity);
+      setStatus("success");
+      setError(undefined);
+    } catch (err) {
+      setStatus("loginError");
+      setError(
+        err instanceof Error ? err : new Error("Failed to activate student account"),
       );
-      return;
     }
+  }, []);
 
-    const currentIdentity = authClient.getIdentity();
-    if (
-      !currentIdentity.getPrincipal().isAnonymous() &&
-      currentIdentity instanceof DelegationIdentity &&
-      isDelegationValid(currentIdentity.getDelegation())
-    ) {
-      setErrorMessage("User is already authenticated");
-      return;
+  const login = useCallback(async () => {
+    try {
+      setStatus("logging-in");
+      setError(undefined);
+
+      let client = authClient;
+      if (!client) {
+        client = await createAuthClient(createOptions);
+        setAuthClient(client);
+      }
+
+      const currentIdentity = client.getIdentity();
+      if (
+        !currentIdentity.getPrincipal().isAnonymous() &&
+        currentIdentity instanceof DelegationIdentity &&
+        isDelegationValid(currentIdentity.getDelegation())
+      ) {
+        setIdentity(currentIdentity);
+        setStatus("success");
+        return;
+      }
+
+      const identityProvider =
+        DEFAULT_IDENTITY_PROVIDER && DEFAULT_IDENTITY_PROVIDER !== "undefined"
+          ? DEFAULT_IDENTITY_PROVIDER
+          : "https://identity.internetcomputer.org";
+
+      const options: AuthClientLoginOptions = {
+        identityProvider,
+        onSuccess: () => {
+          const latestIdentity = client?.getIdentity();
+          if (latestIdentity) {
+            setIdentity(latestIdentity);
+            try {
+              localStorage.removeItem("jee_student_key");
+            } catch {}
+            setStatus("success");
+          }
+        },
+        onError: (maybeError?: string) => {
+          setErrorMessage(maybeError ?? "Login failed");
+        },
+        maxTimeToLive: ONE_HOUR_IN_NANOSECONDS * BigInt(24 * 30), // 30 days
+      };
+
+      await client.login(options);
+    } catch (err) {
+      setErrorMessage(
+        err instanceof Error ? err.message : "Failed to initialize login service",
+      );
     }
-
-    const options: AuthClientLoginOptions = {
-      identityProvider: DEFAULT_IDENTITY_PROVIDER,
-      onSuccess: handleLoginSuccess,
-      onError: handleLoginError,
-      maxTimeToLive: ONE_HOUR_IN_NANOSECONDS * BigInt(24 * 30), // 30 days
-    };
-
-    setStatus("logging-in");
-    void authClient.login(options);
-  }, [authClient, handleLoginError, handleLoginSuccess, setErrorMessage]);
+  }, [authClient, createOptions, setErrorMessage]);
 
   const clear = useCallback(() => {
-    if (!authClient) {
-      setErrorMessage("Auth client not initialized");
-      return;
-    }
+    try {
+      localStorage.removeItem("jee_student_key");
+      localStorage.removeItem("jee_student_name");
+    } catch {}
 
-    void authClient
-      .logout()
-      .then(() => {
-        setIdentity(undefined);
-        setAuthClient(undefined);
-        setStatus("idle");
-        setError(undefined);
-      })
-      .catch((unknownError: unknown) => {
-        setStatus("loginError");
-        setError(
-          unknownError instanceof Error
-            ? unknownError
-            : new Error("Logout failed"),
-        );
-      });
-  }, [authClient, setErrorMessage]);
+    setStudentName(undefined);
+    setIdentity(undefined);
+    setStatus("idle");
+    setError(undefined);
+
+    if (authClient) {
+      void authClient.logout().catch(() => {});
+    }
+  }, [authClient]);
 
   useEffect(() => {
     let cancelled = false;
@@ -247,6 +263,15 @@ export function InternetIdentityProvider({
         if (isAuthenticated) {
           const loadedIdentity = existingClient.getIdentity();
           setIdentity(loadedIdentity);
+        } else {
+          // Restore student key identity if user previously logged in as student
+          try {
+            const savedStudentKey = localStorage.getItem("jee_student_key");
+            if (savedStudentKey) {
+              const restoredId = Ed25519KeyIdentity.fromJSON(savedStudentKey);
+              setIdentity(restoredId);
+            }
+          } catch {}
         }
       } catch (unknownError) {
         setStatus("loginError");
@@ -268,6 +293,8 @@ export function InternetIdentityProvider({
     () => ({
       identity,
       login,
+      loginAsStudent,
+      studentName,
       clear,
       loginStatus,
       isInitializing: loginStatus === "initializing",
@@ -277,7 +304,7 @@ export function InternetIdentityProvider({
       isLoginError: loginStatus === "loginError",
       loginError,
     }),
-    [identity, login, clear, loginStatus, loginError],
+    [identity, login, loginAsStudent, studentName, clear, loginStatus, loginError],
   );
 
   return createElement(InternetIdentityReactContext.Provider, {

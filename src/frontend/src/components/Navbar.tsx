@@ -78,9 +78,13 @@ export default function Navbar() {
 
           {isAuthenticated ? (
             <div className="hidden sm:flex items-center gap-2">
-              <span className="text-xs text-muted-foreground font-mono max-w-[120px] truncate border border-border/60 bg-muted/40 px-2 py-1 rounded">
+              <a
+                href="/login"
+                className="text-xs text-muted-foreground font-mono max-w-[120px] truncate border border-border/60 bg-muted/40 px-2 py-1 rounded hover:border-primary/50 transition-colors"
+                title="View Account Details"
+              >
                 {identity.getPrincipal().toString()}
-              </span>
+              </a>
               <Button
                 variant="outline"
                 size="sm"
@@ -92,15 +96,16 @@ export default function Navbar() {
               </Button>
             </div>
           ) : (
-            <Button
-              variant="default"
-              size="sm"
-              onClick={login}
-              className="hidden sm:flex h-8 bg-primary hover:bg-primary/90 text-xs text-primary-foreground font-medium items-center gap-1 shadow-sm"
-            >
-              <LogIn className="w-3.5 h-3.5" />
-              Login
-            </Button>
+            <a href="/login" className="hidden sm:inline-flex">
+              <Button
+                variant="default"
+                size="sm"
+                className="h-8 bg-primary hover:bg-primary/90 text-xs text-primary-foreground font-medium items-center gap-1 shadow-sm"
+              >
+                <LogIn className="w-3.5 h-3.5" />
+                Login
+              </Button>
+            </a>
           )}
 
           {/* Mobile menu toggle */}
@@ -141,9 +146,13 @@ export default function Navbar() {
 
             {isAuthenticated ? (
               <div className="flex flex-col gap-2 pt-2 border-t border-border/30">
-                <span className="text-xs text-muted-foreground font-mono truncate bg-muted/40 px-2 py-1 rounded">
+                <a
+                  href="/login"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-xs text-muted-foreground font-mono truncate bg-muted/40 px-2 py-1.5 rounded text-center hover:text-foreground hover:bg-muted/70 transition-colors"
+                >
                   Principal: {identity.getPrincipal().toString()}
-                </span>
+                </a>
                 <Button
                   variant="outline"
                   size="sm"
@@ -159,18 +168,20 @@ export default function Navbar() {
               </div>
             ) : (
               <div className="pt-2 border-t border-border/30">
-                <Button
-                  variant="default"
-                  size="sm"
-                  onClick={() => {
-                    login();
-                    setMobileOpen(false);
-                  }}
-                  className="w-full h-9 justify-center text-xs bg-primary text-primary-foreground flex items-center gap-1.5"
+                <a
+                  href="/login"
+                  onClick={() => setMobileOpen(false)}
+                  className="block w-full"
                 >
-                  <LogIn className="w-3.5 h-3.5" />
-                  Login
-                </Button>
+                  <Button
+                    variant="default"
+                    size="sm"
+                    className="w-full h-9 justify-center text-xs bg-primary text-primary-foreground flex items-center gap-1.5"
+                  >
+                    <LogIn className="w-3.5 h-3.5" />
+                    Login
+                  </Button>
+                </a>
               </div>
             )}
           </div>

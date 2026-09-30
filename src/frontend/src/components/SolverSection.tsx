@@ -1038,14 +1038,15 @@ export default function SolverSection() {
                 />
               </div>
               {!isAuthenticated && (
-                <Button
-                  onClick={login}
-                  size="sm"
-                  variant="outline"
-                  className="text-xs h-8 border-primary/30 text-primary hover:bg-primary/10"
-                >
-                  Log In
-                </Button>
+                <a href="/login">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="text-xs h-8 border-primary/30 text-primary hover:bg-primary/10"
+                  >
+                    Log In
+                  </Button>
+                </a>
               )}
             </div>
           </div>
@@ -1331,16 +1332,17 @@ export default function SolverSection() {
             </p>
           </div>
           <div className="flex flex-col gap-2 pt-4">
-            <Button
-              onClick={() => {
-                setShowLoginLimitModal(false);
-                login();
-              }}
-              className="w-full h-11 bg-primary text-primary-foreground hover:bg-primary/90 font-semibold shadow-glow flex items-center justify-center gap-2"
-            >
-              <LogIn className="w-4 h-4" />
-              Sign in with Internet Identity
-            </Button>
+            <a href="/login" className="w-full">
+              <Button
+                onClick={() => {
+                  setShowLoginLimitModal(false);
+                }}
+                className="w-full h-11 bg-primary text-primary-foreground hover:bg-primary/90 font-semibold shadow-glow flex items-center justify-center gap-2"
+              >
+                <LogIn className="w-4 h-4" />
+                Go to Login Page
+              </Button>
+            </a>
             <Button
               variant="ghost"
               onClick={() => setShowLoginLimitModal(false)}

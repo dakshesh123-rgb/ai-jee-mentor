@@ -33,23 +33,22 @@ export async function loadConfig(): Promise<Config> {
   if (configCache) {
     return configCache;
   }
-  const backendCanisterId = process.env.CANISTER_ID_BACKEND;
+  const backendCanisterId = process.env.CANISTER_ID_BACKEND || "fallback-canister";
   const envBaseUrl = process.env.BASE_URL || "/";
   const baseUrl = envBaseUrl.endsWith("/") ? envBaseUrl : `${envBaseUrl}/`;
   try {
     const response = await fetch(`${baseUrl}env.json`);
     const config = (await response.json()) as JsonConfig;
-    if (!backendCanisterId && config.backend_canister_id === "undefined") {
-      console.error("CANISTER_ID_BACKEND is not set");
-      throw new Error("CANISTER_ID_BACKEND is not set");
-    }
+
+    const resolvedCanisterId =
+      config.backend_canister_id && config.backend_canister_id !== "undefined"
+        ? config.backend_canister_id
+        : backendCanisterId;
 
     const fullConfig = {
       backend_host:
         config.backend_host === "undefined" ? undefined : config.backend_host,
-      backend_canister_id: (config.backend_canister_id === "undefined"
-        ? backendCanisterId
-        : config.backend_canister_id) as string,
+      backend_canister_id: resolvedCanisterId,
       storage_gateway_url: process.env.STORAGE_GATEWAY_URL ?? "nogateway",
       bucket_name: DEFAULT_BUCKET_NAME,
       project_id:
@@ -64,10 +63,6 @@ export async function loadConfig(): Promise<Config> {
     configCache = fullConfig;
     return fullConfig;
   } catch {
-    if (!backendCanisterId) {
-      console.error("CANISTER_ID_BACKEND is not set");
-      throw new Error("CANISTER_ID_BACKEND is not set");
-    }
     const fallbackConfig = {
       backend_host: undefined,
       backend_canister_id: backendCanisterId,

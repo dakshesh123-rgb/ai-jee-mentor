@@ -5,6 +5,7 @@ import HeroSection from "./components/HeroSection";
 import Navbar from "./components/Navbar";
 import SolverSection from "./components/SolverSection";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import LoginPage from "./pages/LoginPage";
 
 const MarqueeStrip = lazy(() => import("./components/MarqueeStrip"));
 const FeaturesSection = lazy(() => import("./components/FeaturesSection"));
@@ -51,7 +52,13 @@ const privacyRoute = createRoute({
   component: PrivacyPolicy,
 });
 
-const routeTree = rootRoute.addChildren([homeRoute, privacyRoute]);
+const loginRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/login",
+  component: LoginPage,
+});
+
+const routeTree = rootRoute.addChildren([homeRoute, privacyRoute, loginRoute]);
 
 const router = createRouter({ routeTree });
 

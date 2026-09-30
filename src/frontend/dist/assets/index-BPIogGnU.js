@@ -1,4 +1,4 @@
-const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/FeaturesSection-pjObSItC.js","assets/target-BI0gkP2J.js","assets/SubjectsSection-Cj0doUZY.js","assets/badge-Csqbt9FC.js","assets/DashboardSection-DMbbKrRd.js","assets/PracticeSection-DQ1OUuLA.js","assets/FutureSection-5MMx4ppo.js"])))=>i.map(i=>d[i]);
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/FeaturesSection-_bXUc2U4.js","assets/target-BkI0__y2.js","assets/SubjectsSection-Vjh54C49.js","assets/badge-HqLoYD1V.js","assets/DashboardSection-PP8XAX3H.js","assets/PracticeSection-BH9wQbjk.js","assets/FutureSection-BqzRae8s.js"])))=>i.map(i=>d[i]);
 var __defProp = Object.defineProperty;
 var __typeError = (msg) => {
   throw TypeError(msg);
@@ -22650,29 +22650,29 @@ const createLucideIcon = (iconName, iconNode) => {
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$j = [
+const __iconNode$u = [
   ["path", { d: "m12 19-7-7 7-7", key: "1l729n" }],
   ["path", { d: "M19 12H5", key: "x3x0zl" }]
 ];
-const ArrowLeft = createLucideIcon("arrow-left", __iconNode$j);
+const ArrowLeft = createLucideIcon("arrow-left", __iconNode$u);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$i = [
+const __iconNode$t = [
   ["path", { d: "M5 12h14", key: "1ays0h" }],
   ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
 ];
-const ArrowRight = createLucideIcon("arrow-right", __iconNode$i);
+const ArrowRight = createLucideIcon("arrow-right", __iconNode$t);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$h = [
+const __iconNode$s = [
   ["path", { d: "M12 7v14", key: "1akyts" }],
   [
     "path",
@@ -22682,14 +22682,14 @@ const __iconNode$h = [
     }
   ]
 ];
-const BookOpen = createLucideIcon("book-open", __iconNode$h);
+const BookOpen = createLucideIcon("book-open", __iconNode$s);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$g = [
+const __iconNode$r = [
   [
     "path",
     {
@@ -22712,14 +22712,14 @@ const __iconNode$g = [
   ["path", { d: "M6 18a4 4 0 0 1-1.967-.516", key: "2e4loj" }],
   ["path", { d: "M19.967 17.484A4 4 0 0 1 18 18", key: "159ez6" }]
 ];
-const Brain = createLucideIcon("brain", __iconNode$g);
+const Brain = createLucideIcon("brain", __iconNode$r);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$f = [
+const __iconNode$q = [
   [
     "path",
     {
@@ -22729,49 +22729,136 @@ const __iconNode$f = [
   ],
   ["circle", { cx: "12", cy: "13", r: "3", key: "1vg3eu" }]
 ];
-const Camera = createLucideIcon("camera", __iconNode$f);
+const Camera = createLucideIcon("camera", __iconNode$q);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$e = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
-const Check = createLucideIcon("check", __iconNode$e);
+const __iconNode$p = [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]];
+const Check = createLucideIcon("check", __iconNode$p);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$d = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
-const ChevronDown = createLucideIcon("chevron-down", __iconNode$d);
+const __iconNode$o = [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]];
+const ChevronDown = createLucideIcon("chevron-down", __iconNode$o);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$c = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
-const ChevronUp = createLucideIcon("chevron-up", __iconNode$c);
+const __iconNode$n = [["path", { d: "m18 15-6-6-6 6", key: "153udz" }]];
+const ChevronUp = createLucideIcon("chevron-up", __iconNode$n);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$b = [
+const __iconNode$m = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["line", { x1: "12", x2: "12", y1: "8", y2: "12", key: "1pkeuh" }],
+  ["line", { x1: "12", x2: "12.01", y1: "16", y2: "16", key: "4dfq90" }]
+];
+const CircleAlert = createLucideIcon("circle-alert", __iconNode$m);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$l = [
   ["path", { d: "M21.801 10A10 10 0 1 1 17 3.335", key: "yps3ct" }],
   ["path", { d: "m9 11 3 3L22 4", key: "1pflzl" }]
 ];
-const CircleCheckBig = createLucideIcon("circle-check-big", __iconNode$b);
+const CircleCheckBig = createLucideIcon("circle-check-big", __iconNode$l);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$a = [
+const __iconNode$k = [
+  ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+  ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
+];
+const CircleCheck = createLucideIcon("circle-check", __iconNode$k);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$j = [
+  ["rect", { width: "14", height: "14", x: "8", y: "8", rx: "2", ry: "2", key: "17jyea" }],
+  ["path", { d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2", key: "zix9uf" }]
+];
+const Copy = createLucideIcon("copy", __iconNode$j);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$i = [
+  ["path", { d: "M12 20v2", key: "1lh1kg" }],
+  ["path", { d: "M12 2v2", key: "tus03m" }],
+  ["path", { d: "M17 20v2", key: "1rnc9c" }],
+  ["path", { d: "M17 2v2", key: "11trls" }],
+  ["path", { d: "M2 12h2", key: "1t8f8n" }],
+  ["path", { d: "M2 17h2", key: "7oei6x" }],
+  ["path", { d: "M2 7h2", key: "asdhe0" }],
+  ["path", { d: "M20 12h2", key: "1q8mjw" }],
+  ["path", { d: "M20 17h2", key: "1fpfkl" }],
+  ["path", { d: "M20 7h2", key: "1o8tra" }],
+  ["path", { d: "M7 20v2", key: "4gnj0m" }],
+  ["path", { d: "M7 2v2", key: "1i4yhu" }],
+  ["rect", { x: "4", y: "4", width: "16", height: "16", rx: "2", key: "1vbyd7" }],
+  ["rect", { x: "8", y: "8", width: "8", height: "8", rx: "1", key: "z9xiuo" }]
+];
+const Cpu = createLucideIcon("cpu", __iconNode$i);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$h = [
+  ["ellipse", { cx: "12", cy: "5", rx: "9", ry: "3", key: "msslwz" }],
+  ["path", { d: "M3 5V19A9 3 0 0 0 21 19V5", key: "1wlel7" }],
+  ["path", { d: "M3 12A9 3 0 0 0 21 12", key: "mv7ke4" }]
+];
+const Database = createLucideIcon("database", __iconNode$h);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$g = [
+  ["path", { d: "M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4", key: "1nerag" }],
+  ["path", { d: "M14 13.12c0 2.38 0 6.38-1 8.88", key: "o46ks0" }],
+  ["path", { d: "M17.29 21.02c.12-.6.43-2.3.5-3.02", key: "ptglia" }],
+  ["path", { d: "M2 12a10 10 0 0 1 18-6", key: "ydlgp0" }],
+  ["path", { d: "M2 16h.01", key: "1gqxmh" }],
+  ["path", { d: "M21.8 16c.2-2 .131-5.354 0-6", key: "drycrb" }],
+  ["path", { d: "M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2", key: "1tidbn" }],
+  ["path", { d: "M8.65 22c.21-.66.45-1.32.57-2", key: "13wd9y" }],
+  ["path", { d: "M9 6.8a6 6 0 0 1 9 5.2v2", key: "1fr1j5" }]
+];
+const Fingerprint = createLucideIcon("fingerprint", __iconNode$g);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$f = [
   ["path", { d: "M8 3H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h3", key: "1i73f7" }],
   ["path", { d: "M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3", key: "saxlbk" }],
   ["path", { d: "M12 20v2", key: "1lh1kg" }],
@@ -22779,14 +22866,33 @@ const __iconNode$a = [
   ["path", { d: "M12 8v2", key: "1woqiv" }],
   ["path", { d: "M12 2v2", key: "tus03m" }]
 ];
-const FlipHorizontal = createLucideIcon("flip-horizontal", __iconNode$a);
+const FlipHorizontal = createLucideIcon("flip-horizontal", __iconNode$f);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$9 = [
+const __iconNode$e = [
+  ["line", { x1: "22", x2: "2", y1: "12", y2: "12", key: "1y58io" }],
+  [
+    "path",
+    {
+      d: "M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z",
+      key: "oot6mr"
+    }
+  ],
+  ["line", { x1: "6", x2: "6.01", y1: "16", y2: "16", key: "sgf278" }],
+  ["line", { x1: "10", x2: "10.01", y1: "16", y2: "16", key: "1l4acy" }]
+];
+const HardDrive = createLucideIcon("hard-drive", __iconNode$e);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$d = [
   [
     "path",
     {
@@ -22795,14 +22901,31 @@ const __iconNode$9 = [
     }
   ]
 ];
-const Heart = createLucideIcon("heart", __iconNode$9);
+const Heart = createLucideIcon("heart", __iconNode$d);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$8 = [
+const __iconNode$c = [
+  [
+    "path",
+    {
+      d: "M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z",
+      key: "1s6t7t"
+    }
+  ],
+  ["circle", { cx: "16.5", cy: "7.5", r: ".5", fill: "currentColor", key: "w0ekpg" }]
+];
+const KeyRound = createLucideIcon("key-round", __iconNode$c);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$b = [
   [
     "path",
     {
@@ -22813,15 +22936,50 @@ const __iconNode$8 = [
   ["path", { d: "M9 18h6", key: "x1upvd" }],
   ["path", { d: "M10 22h4", key: "ceow96" }]
 ];
-const Lightbulb = createLucideIcon("lightbulb", __iconNode$8);
+const Lightbulb = createLucideIcon("lightbulb", __iconNode$b);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const __iconNode$7 = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
-const LoaderCircle = createLucideIcon("loader-circle", __iconNode$7);
+const __iconNode$a = [["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]];
+const LoaderCircle = createLucideIcon("loader-circle", __iconNode$a);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$9 = [
+  ["rect", { width: "18", height: "11", x: "3", y: "11", rx: "2", ry: "2", key: "1w4ew1" }],
+  ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
+];
+const Lock = createLucideIcon("lock", __iconNode$9);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$8 = [
+  ["path", { d: "m10 17 5-5-5-5", key: "1bsop3" }],
+  ["path", { d: "M15 12H3", key: "6jk70r" }],
+  ["path", { d: "M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4", key: "u53s6r" }]
+];
+const LogIn = createLucideIcon("log-in", __iconNode$8);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$7 = [
+  ["path", { d: "m16 17 5-5-5-5", key: "1bji2h" }],
+  ["path", { d: "M21 12H9", key: "dn1m92" }],
+  ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }]
+];
+const LogOut = createLucideIcon("log-out", __iconNode$7);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -22829,11 +22987,11 @@ const LoaderCircle = createLucideIcon("loader-circle", __iconNode$7);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$6 = [
-  ["path", { d: "m10 17 5-5-5-5", key: "1bsop3" }],
-  ["path", { d: "M15 12H3", key: "6jk70r" }],
-  ["path", { d: "M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4", key: "u53s6r" }]
+  ["path", { d: "M4 12h16", key: "1lakjw" }],
+  ["path", { d: "M4 18h16", key: "19g7jn" }],
+  ["path", { d: "M4 6h16", key: "1o0s65" }]
 ];
-const LogIn = createLucideIcon("log-in", __iconNode$6);
+const Menu = createLucideIcon("menu", __iconNode$6);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -22841,11 +22999,15 @@ const LogIn = createLucideIcon("log-in", __iconNode$6);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$5 = [
-  ["path", { d: "m16 17 5-5-5-5", key: "1bji2h" }],
-  ["path", { d: "M21 12H9", key: "dn1m92" }],
-  ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }]
+  [
+    "path",
+    {
+      d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+      key: "oel41y"
+    }
+  ]
 ];
-const LogOut = createLucideIcon("log-out", __iconNode$5);
+const Shield = createLucideIcon("shield", __iconNode$5);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -22853,18 +23015,6 @@ const LogOut = createLucideIcon("log-out", __iconNode$5);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$4 = [
-  ["path", { d: "M4 12h16", key: "1lakjw" }],
-  ["path", { d: "M4 18h16", key: "19g7jn" }],
-  ["path", { d: "M4 6h16", key: "1o0s65" }]
-];
-const Menu = createLucideIcon("menu", __iconNode$4);
-/**
- * @license lucide-react v0.511.0 - ISC
- *
- * This source code is licensed under the ISC license.
- * See the LICENSE file in the root directory of this source tree.
- */
-const __iconNode$3 = [
   [
     "path",
     {
@@ -22877,7 +23027,21 @@ const __iconNode$3 = [
   ["path", { d: "M4 17v2", key: "vumght" }],
   ["path", { d: "M5 18H3", key: "zchphs" }]
 ];
-const Sparkles = createLucideIcon("sparkles", __iconNode$3);
+const Sparkles = createLucideIcon("sparkles", __iconNode$4);
+/**
+ * @license lucide-react v0.511.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const __iconNode$3 = [
+  ["path", { d: "M3 6h18", key: "d0wm0j" }],
+  ["path", { d: "M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6", key: "4alrt4" }],
+  ["path", { d: "M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2", key: "v07s0e" }],
+  ["line", { x1: "10", x2: "10", y1: "11", y2: "17", key: "1uufr5" }],
+  ["line", { x1: "14", x2: "14", y1: "11", y2: "17", key: "xtxkd" }]
+];
+const Trash2 = createLucideIcon("trash-2", __iconNode$3);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -22885,13 +23049,11 @@ const Sparkles = createLucideIcon("sparkles", __iconNode$3);
  * See the LICENSE file in the root directory of this source tree.
  */
 const __iconNode$2 = [
-  ["path", { d: "M3 6h18", key: "d0wm0j" }],
-  ["path", { d: "M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6", key: "4alrt4" }],
-  ["path", { d: "M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2", key: "v07s0e" }],
-  ["line", { x1: "10", x2: "10", y1: "11", y2: "17", key: "1uufr5" }],
-  ["line", { x1: "14", x2: "14", y1: "11", y2: "17", key: "xtxkd" }]
+  ["path", { d: "m16 11 2 2 4-4", key: "9rsbq5" }],
+  ["path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", key: "1yyitq" }],
+  ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
 ];
-const Trash2 = createLucideIcon("trash-2", __iconNode$2);
+const UserCheck = createLucideIcon("user-check", __iconNode$2);
 /**
  * @license lucide-react v0.511.0 - ISC
  *
@@ -35862,19 +36024,16 @@ async function loadConfig() {
   if (configCache) {
     return configCache;
   }
-  const backendCanisterId = define_process_env_default.CANISTER_ID_BACKEND;
+  const backendCanisterId = define_process_env_default.CANISTER_ID_BACKEND || "fallback-canister";
   const envBaseUrl = define_process_env_default.BASE_URL || "/";
   const baseUrl = envBaseUrl.endsWith("/") ? envBaseUrl : `${envBaseUrl}/`;
   try {
     const response = await fetch(`${baseUrl}env.json`);
     const config = await response.json();
-    if (!backendCanisterId && config.backend_canister_id === "undefined") {
-      console.error("CANISTER_ID_BACKEND is not set");
-      throw new Error("CANISTER_ID_BACKEND is not set");
-    }
+    const resolvedCanisterId = config.backend_canister_id && config.backend_canister_id !== "undefined" ? config.backend_canister_id : backendCanisterId;
     const fullConfig = {
       backend_host: config.backend_host === "undefined" ? void 0 : config.backend_host,
-      backend_canister_id: config.backend_canister_id === "undefined" ? backendCanisterId : config.backend_canister_id,
+      backend_canister_id: resolvedCanisterId,
       storage_gateway_url: "https://blob.caffeine.ai",
       bucket_name: DEFAULT_BUCKET_NAME,
       project_id: config.project_id !== "undefined" ? config.project_id : DEFAULT_PROJECT_ID,
@@ -35883,10 +36042,6 @@ async function loadConfig() {
     configCache = fullConfig;
     return fullConfig;
   } catch {
-    if (!backendCanisterId) {
-      console.error("CANISTER_ID_BACKEND is not set");
-      throw new Error("CANISTER_ID_BACKEND is not set");
-    }
     const fallbackConfig = {
       backend_host: void 0,
       backend_canister_id: backendCanisterId,
@@ -35973,17 +36128,21 @@ const InternetIdentityReactContext = reactExports.createContext(
   void 0
 );
 async function createAuthClient(createOptions) {
-  const config = await loadConfig();
+  let ii_derivation_origin = void 0;
+  try {
+    const config = await loadConfig();
+    if ((config == null ? void 0 : config.ii_derivation_origin) && config.ii_derivation_origin !== "undefined") {
+      ii_derivation_origin = config.ii_derivation_origin;
+    }
+  } catch {
+  }
   const options = {
     idleOptions: {
-      // Default behaviour of this hook is not to logout and reload window on identity expiration
       disableDefaultIdleCallback: true,
       disableIdle: true,
       ...createOptions == null ? void 0 : createOptions.idleOptions
     },
-    loginOptions: {
-      derivationOrigin: config.ii_derivation_origin
-    },
+    ...ii_derivation_origin ? { loginOptions: { derivationOrigin: ii_derivation_origin } } : {},
     ...createOptions
   };
   const authClient = await AuthClient.create(options);
@@ -36005,70 +36164,109 @@ function InternetIdentityProvider({
   children,
   createOptions
 }) {
-  const [authClient, setAuthClient] = reactExports.useState(
-    void 0
-  );
+  const [authClient, setAuthClient] = reactExports.useState(void 0);
   const [identity, setIdentity] = reactExports.useState(void 0);
+  const [studentName, setStudentName] = reactExports.useState(() => {
+    try {
+      return localStorage.getItem("jee_student_name") || void 0;
+    } catch {
+      return void 0;
+    }
+  });
   const [loginStatus, setStatus] = reactExports.useState("initializing");
   const [loginError, setError] = reactExports.useState(void 0);
   const setErrorMessage = reactExports.useCallback((message) => {
     setStatus("loginError");
     setError(new Error(message));
   }, []);
-  const handleLoginSuccess = reactExports.useCallback(() => {
-    const latestIdentity = authClient == null ? void 0 : authClient.getIdentity();
-    if (!latestIdentity) {
-      setErrorMessage("Identity not found after successful login");
-      return;
-    }
-    setIdentity(latestIdentity);
-    setStatus("success");
-  }, [authClient, setErrorMessage]);
-  const handleLoginError = reactExports.useCallback(
-    (maybeError) => {
-      setErrorMessage(maybeError ?? "Login failed");
-    },
-    [setErrorMessage]
-  );
-  const login = reactExports.useCallback(() => {
-    if (!authClient) {
-      setErrorMessage(
-        "AuthClient is not initialized yet, make sure to call `login` on user interaction e.g. click."
-      );
-      return;
-    }
-    const currentIdentity = authClient.getIdentity();
-    if (!currentIdentity.getPrincipal().isAnonymous() && currentIdentity instanceof DelegationIdentity && isDelegationValid(currentIdentity.getDelegation())) {
-      setErrorMessage("User is already authenticated");
-      return;
-    }
-    const options = {
-      identityProvider: DEFAULT_IDENTITY_PROVIDER,
-      onSuccess: handleLoginSuccess,
-      onError: handleLoginError,
-      maxTimeToLive: ONE_HOUR_IN_NANOSECONDS * BigInt(24 * 30)
-      // 30 days
-    };
-    setStatus("logging-in");
-    void authClient.login(options);
-  }, [authClient, handleLoginError, handleLoginSuccess, setErrorMessage]);
-  const clear = reactExports.useCallback(() => {
-    if (!authClient) {
-      setErrorMessage("Auth client not initialized");
-      return;
-    }
-    void authClient.logout().then(() => {
-      setIdentity(void 0);
-      setAuthClient(void 0);
-      setStatus("idle");
+  const loginAsStudent = reactExports.useCallback((name) => {
+    try {
+      setStatus("logging-in");
+      const chosenName = (name == null ? void 0 : name.trim()) || "JEE Aspirant";
+      let studentIdentity;
+      const existingKey = localStorage.getItem("jee_student_key");
+      if (existingKey) {
+        try {
+          studentIdentity = Ed25519KeyIdentity.fromJSON(existingKey);
+        } catch {
+          const newKey = Ed25519KeyIdentity.generate();
+          localStorage.setItem("jee_student_key", JSON.stringify(newKey.toJSON()));
+          studentIdentity = newKey;
+        }
+      } else {
+        const newKey = Ed25519KeyIdentity.generate();
+        localStorage.setItem("jee_student_key", JSON.stringify(newKey.toJSON()));
+        studentIdentity = newKey;
+      }
+      localStorage.setItem("jee_student_name", chosenName);
+      setStudentName(chosenName);
+      setIdentity(studentIdentity);
+      setStatus("success");
       setError(void 0);
-    }).catch((unknownError) => {
+    } catch (err) {
       setStatus("loginError");
       setError(
-        unknownError instanceof Error ? unknownError : new Error("Logout failed")
+        err instanceof Error ? err : new Error("Failed to activate student account")
       );
-    });
-  }, [authClient, setErrorMessage]);
+    }
+  }, []);
+  const login = reactExports.useCallback(async () => {
+    try {
+      setStatus("logging-in");
+      setError(void 0);
+      let client2 = authClient;
+      if (!client2) {
+        client2 = await createAuthClient(createOptions);
+        setAuthClient(client2);
+      }
+      const currentIdentity = client2.getIdentity();
+      if (!currentIdentity.getPrincipal().isAnonymous() && currentIdentity instanceof DelegationIdentity && isDelegationValid(currentIdentity.getDelegation())) {
+        setIdentity(currentIdentity);
+        setStatus("success");
+        return;
+      }
+      const identityProvider = DEFAULT_IDENTITY_PROVIDER && DEFAULT_IDENTITY_PROVIDER !== "undefined" ? DEFAULT_IDENTITY_PROVIDER : "https://identity.internetcomputer.org";
+      const options = {
+        identityProvider,
+        onSuccess: () => {
+          const latestIdentity = client2 == null ? void 0 : client2.getIdentity();
+          if (latestIdentity) {
+            setIdentity(latestIdentity);
+            try {
+              localStorage.removeItem("jee_student_key");
+            } catch {
+            }
+            setStatus("success");
+          }
+        },
+        onError: (maybeError) => {
+          setErrorMessage(maybeError ?? "Login failed");
+        },
+        maxTimeToLive: ONE_HOUR_IN_NANOSECONDS * BigInt(24 * 30)
+        // 30 days
+      };
+      await client2.login(options);
+    } catch (err) {
+      setErrorMessage(
+        err instanceof Error ? err.message : "Failed to initialize login service"
+      );
+    }
+  }, [authClient, createOptions, setErrorMessage]);
+  const clear = reactExports.useCallback(() => {
+    try {
+      localStorage.removeItem("jee_student_key");
+      localStorage.removeItem("jee_student_name");
+    } catch {
+    }
+    setStudentName(void 0);
+    setIdentity(void 0);
+    setStatus("idle");
+    setError(void 0);
+    if (authClient) {
+      void authClient.logout().catch(() => {
+      });
+    }
+  }, [authClient]);
   reactExports.useEffect(() => {
     let cancelled = false;
     void (async () => {
@@ -36085,6 +36283,15 @@ function InternetIdentityProvider({
         if (isAuthenticated) {
           const loadedIdentity = existingClient.getIdentity();
           setIdentity(loadedIdentity);
+        } else {
+          try {
+            const savedStudentKey = localStorage.getItem("jee_student_key");
+            if (savedStudentKey) {
+              const restoredId = Ed25519KeyIdentity.fromJSON(savedStudentKey);
+              setIdentity(restoredId);
+            }
+          } catch {
+          }
         }
       } catch (unknownError) {
         setStatus("loginError");
@@ -36103,6 +36310,8 @@ function InternetIdentityProvider({
     () => ({
       identity,
       login,
+      loginAsStudent,
+      studentName,
       clear,
       loginStatus,
       isInitializing: loginStatus === "initializing",
@@ -36112,7 +36321,7 @@ function InternetIdentityProvider({
       isLoginError: loginStatus === "loginError",
       loginError
     }),
-    [identity, login, clear, loginStatus, loginError]
+    [identity, login, loginAsStudent, studentName, clear, loginStatus, loginError]
   );
   return reactExports.createElement(InternetIdentityReactContext.Provider, {
     value,
@@ -36179,7 +36388,15 @@ function Navbar() {
               "AI · Online"
             ] }),
             isAuthenticated ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "hidden sm:flex items-center gap-2", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-xs text-muted-foreground font-mono max-w-[120px] truncate border border-border/60 bg-muted/40 px-2 py-1 rounded", children: identity.getPrincipal().toString() }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "a",
+                {
+                  href: "/login",
+                  className: "text-xs text-muted-foreground font-mono max-w-[120px] truncate border border-border/60 bg-muted/40 px-2 py-1 rounded hover:border-primary/50 transition-colors",
+                  title: "View Account Details",
+                  children: identity.getPrincipal().toString()
+                }
+              ),
               /* @__PURE__ */ jsxRuntimeExports.jsxs(
                 Button,
                 {
@@ -36193,19 +36410,18 @@ function Navbar() {
                   ]
                 }
               )
-            ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "/login", className: "hidden sm:inline-flex", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
               Button,
               {
                 variant: "default",
                 size: "sm",
-                onClick: login,
-                className: "hidden sm:flex h-8 bg-primary hover:bg-primary/90 text-xs text-primary-foreground font-medium items-center gap-1 shadow-sm",
+                className: "h-8 bg-primary hover:bg-primary/90 text-xs text-primary-foreground font-medium items-center gap-1 shadow-sm",
                 children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsx(LogIn, { className: "w-3.5 h-3.5" }),
                   "Login"
                 ]
               }
-            ),
+            ) }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               Button,
               {
@@ -36236,10 +36452,18 @@ function Navbar() {
               "AI · Online"
             ] }),
             isAuthenticated ? /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2 pt-2 border-t border-border/30", children: [
-              /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { className: "text-xs text-muted-foreground font-mono truncate bg-muted/40 px-2 py-1 rounded", children: [
-                "Principal: ",
-                identity.getPrincipal().toString()
-              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                "a",
+                {
+                  href: "/login",
+                  onClick: () => setMobileOpen(false),
+                  className: "text-xs text-muted-foreground font-mono truncate bg-muted/40 px-2 py-1.5 rounded text-center hover:text-foreground hover:bg-muted/70 transition-colors",
+                  children: [
+                    "Principal: ",
+                    identity.getPrincipal().toString()
+                  ]
+                }
+              ),
               /* @__PURE__ */ jsxRuntimeExports.jsxs(
                 Button,
                 {
@@ -36256,20 +36480,24 @@ function Navbar() {
                   ]
                 }
               )
-            ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "pt-2 border-t border-border/30", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
-              Button,
+            ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "pt-2 border-t border-border/30", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+              "a",
               {
-                variant: "default",
-                size: "sm",
-                onClick: () => {
-                  login();
-                  setMobileOpen(false);
-                },
-                className: "w-full h-9 justify-center text-xs bg-primary text-primary-foreground flex items-center gap-1.5",
-                children: [
-                  /* @__PURE__ */ jsxRuntimeExports.jsx(LogIn, { className: "w-3.5 h-3.5" }),
-                  "Login"
-                ]
+                href: "/login",
+                onClick: () => setMobileOpen(false),
+                className: "block w-full",
+                children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  Button,
+                  {
+                    variant: "default",
+                    size: "sm",
+                    className: "w-full h-9 justify-center text-xs bg-primary text-primary-foreground flex items-center gap-1.5",
+                    children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(LogIn, { className: "w-3.5 h-3.5" }),
+                      "Login"
+                    ]
+                  }
+                )
               }
             ) })
           ] })
@@ -42907,16 +43135,15 @@ Current question: ${rawQuestion}`;
                 }
               }
             ) }),
-            !isAuthenticated && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            !isAuthenticated && /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "/login", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
               Button,
               {
-                onClick: login,
                 size: "sm",
                 variant: "outline",
                 className: "text-xs h-8 border-primary/30 text-primary hover:bg-primary/10",
                 children: "Log In"
               }
-            )
+            ) })
           ] })
         ] }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
@@ -43171,20 +43398,19 @@ Current question: ${rawQuestion}`;
             ", unlock history persistence, and more."
           ] }) }),
           /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-2 pt-4", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsxs(
+            /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "/login", className: "w-full", children: /* @__PURE__ */ jsxRuntimeExports.jsxs(
               Button,
               {
                 onClick: () => {
                   setShowLoginLimitModal(false);
-                  login();
                 },
                 className: "w-full h-11 bg-primary text-primary-foreground hover:bg-primary/90 font-semibold shadow-glow flex items-center justify-center gap-2",
                 children: [
                   /* @__PURE__ */ jsxRuntimeExports.jsx(LogIn, { className: "w-4 h-4" }),
-                  "Sign in with Internet Identity"
+                  "Go to Login Page"
                 ]
               }
-            ),
+            ) }),
             /* @__PURE__ */ jsxRuntimeExports.jsx(
               Button,
               {
@@ -43619,12 +43845,279 @@ function PrivacyPolicy() {
     /* @__PURE__ */ jsxRuntimeExports.jsx(Footer$1, {})
   ] });
 }
-const MarqueeStrip = reactExports.lazy(() => __vitePreload(() => import("./MarqueeStrip-z_ojxqdV.js"), true ? [] : void 0));
-const FeaturesSection = reactExports.lazy(() => __vitePreload(() => import("./FeaturesSection-pjObSItC.js"), true ? __vite__mapDeps([0,1]) : void 0));
-const SubjectsSection = reactExports.lazy(() => __vitePreload(() => import("./SubjectsSection-Cj0doUZY.js"), true ? __vite__mapDeps([2,3]) : void 0));
-const DashboardSection = reactExports.lazy(() => __vitePreload(() => import("./DashboardSection-DMbbKrRd.js"), true ? __vite__mapDeps([4,1]) : void 0));
-const PracticeSection = reactExports.lazy(() => __vitePreload(() => import("./PracticeSection-DQ1OUuLA.js"), true ? __vite__mapDeps([5,3]) : void 0));
-const FutureSection = reactExports.lazy(() => __vitePreload(() => import("./FutureSection-5MMx4ppo.js"), true ? __vite__mapDeps([6,3]) : void 0));
+function Input({ className, type, ...props }) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    "input",
+    {
+      type,
+      "data-slot": "input",
+      className: cn(
+        "file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm",
+        "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
+        "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+        className
+      ),
+      ...props
+    }
+  );
+}
+function LoginPage() {
+  const {
+    identity,
+    login,
+    loginAsStudent,
+    studentName,
+    clear,
+    isLoggingIn,
+    loginError
+  } = useInternetIdentity();
+  const [inputName, setInputName] = reactExports.useState("");
+  const [copied, setCopied] = reactExports.useState(false);
+  const isAuthenticated = identity && !identity.getPrincipal().isAnonymous();
+  const principalStr = identity ? identity.getPrincipal().toString() : "";
+  const handleCopyPrincipal = () => {
+    if (principalStr) {
+      navigator.clipboard.writeText(principalStr);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2e3);
+    }
+  };
+  const handleStudentSignIn = (e) => {
+    e.preventDefault();
+    loginAsStudent(inputName);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background text-foreground flex flex-col justify-between", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Navbar, {}),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("main", { className: "pt-24 pb-20 px-4 sm:px-6 flex-1 flex flex-col justify-center items-center", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "w-full max-w-4xl mx-auto space-y-8", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center justify-between", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "a",
+          {
+            href: "/",
+            className: "inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group",
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(ArrowLeft, { className: "w-4 h-4 transition-transform group-hover:-translate-x-1" }),
+              "Back to Home"
+            ]
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "status-pill flex", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "status-dot" }),
+          "Status: ",
+          isAuthenticated ? "Authenticated (50 Queries/Day)" : "Guest Mode (10 Queries)"
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-1 lg:grid-cols-12 gap-8 items-start", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "lg:col-span-6 bg-card border border-border/80 rounded-2xl p-6 sm:p-8 shadow-xl relative overflow-hidden backdrop-blur-sm", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-full blur-2xl -mr-10 -mt-10 pointer-events-none" }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-3 mb-6", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Brain, { className: "w-5 h-5" }) }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "font-display font-bold text-2xl tracking-tight text-foreground", children: "Student Login" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground", children: "IIT-JEE AI Mentor Access Portal" })
+            ] })
+          ] }),
+          loginError && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mb-6 p-4 rounded-xl border border-destructive/40 bg-destructive/10 text-destructive text-sm flex items-start gap-3", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(CircleAlert, { className: "w-5 h-5 flex-shrink-0 mt-0.5" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "font-semibold", children: "Notice" }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs mt-0.5 opacity-90", children: loginError.message })
+            ] })
+          ] }),
+          isAuthenticated ? (
+            /* Authenticated State */
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-6", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-4 rounded-xl bg-primary/5 border border-primary/20 flex items-start gap-3", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(CircleCheck, { className: "w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-1", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm font-semibold text-foreground", children: studentName ? `Welcome, ${studentName}!` : "Successfully Authenticated!" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground", children: "Your session is active. You have full access to 50 daily AI queries, problem history, and streak sync." })
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "text-xs font-mono uppercase tracking-wider text-muted-foreground", children: "Your Unique Cryptographic Principal ID" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 bg-muted/50 border border-border rounded-lg p-2.5 font-mono text-xs text-foreground break-all select-all", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "truncate flex-1", children: principalStr }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Button,
+                    {
+                      variant: "ghost",
+                      size: "sm",
+                      onClick: handleCopyPrincipal,
+                      className: "h-7 px-2 hover:bg-white/10 text-xs shrink-0",
+                      title: "Copy Principal ID",
+                      children: copied ? /* @__PURE__ */ jsxRuntimeExports.jsx(Check, { className: "w-3.5 h-3.5 text-emerald-400" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Copy, { className: "w-3.5 h-3.5" })
+                    }
+                  )
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "grid grid-cols-2 gap-3 pt-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-3 rounded-lg border border-border/60 bg-muted/20", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground", children: "Daily Allowance" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-base font-bold text-foreground mt-0.5", children: "50 Queries / Day" })
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-3 rounded-lg border border-border/60 bg-muted/20", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground", children: "Account Status" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-base font-bold text-emerald-400 mt-0.5", children: "Active & Ready" })
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col sm:flex-row gap-3 pt-2", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "/#solver", className: "flex-1", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { className: "w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium", children: "Launch AI Solver" }) }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  Button,
+                  {
+                    variant: "outline",
+                    onClick: clear,
+                    className: "border-border hover:bg-destructive/10 hover:text-destructive hover:border-destructive/30 flex items-center justify-center gap-2",
+                    children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(LogOut, { className: "w-4 h-4" }),
+                      "Sign Out"
+                    ]
+                  }
+                )
+              ] })
+            ] })
+          ) : (
+            /* Unauthenticated State */
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-6", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("form", { onSubmit: handleStudentSignIn, className: "space-y-4", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("label", { className: "text-xs font-medium text-foreground", children: "Your Name or Aspirant Handle (Optional)" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(
+                    Input,
+                    {
+                      type: "text",
+                      placeholder: "e.g. Dakshesh / JEE 2027 Aspirant",
+                      value: inputName,
+                      onChange: (e) => setInputName(e.target.value),
+                      className: "h-10 bg-background/50 border-border"
+                    }
+                  )
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  Button,
+                  {
+                    type: "submit",
+                    className: "w-full h-11 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shadow-glow flex items-center justify-center gap-2 text-sm",
+                    children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(UserCheck, { className: "w-4 h-4" }),
+                      "Instant Student Sign In (1-Click)"
+                    ]
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative flex py-1 items-center", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-grow border-t border-border" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "flex-shrink mx-3 text-muted-foreground text-xs uppercase tracking-wider", children: "Or Sign in via Passkey" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-grow border-t border-border" })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs(
+                  Button,
+                  {
+                    variant: "outline",
+                    size: "lg",
+                    onClick: () => login(),
+                    disabled: isLoggingIn,
+                    className: "w-full h-11 border-border/80 hover:bg-muted font-medium flex items-center justify-center gap-2 text-xs",
+                    children: [
+                      /* @__PURE__ */ jsxRuntimeExports.jsx(Fingerprint, { className: "w-4 h-4 text-primary" }),
+                      isLoggingIn ? "Opening Internet Identity..." : "Sign in with Internet Identity"
+                    ]
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-[11px] text-center text-muted-foreground mt-2", children: "Biometric / TouchID / FaceID passkeys on Internet Computer" })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-2 pt-2 border-t border-border/40", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2.5 text-xs text-muted-foreground", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(Zap, { className: "w-3.5 h-3.5 text-primary shrink-0" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+                    /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "50 Free High-Speed Queries" }),
+                    " daily (upgraded from 10 trial uses)"
+                  ] })
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2.5 text-xs text-muted-foreground", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(Sparkles, { className: "w-3.5 h-3.5 text-primary shrink-0" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Persistent problem history across browser sessions" })
+                ] }),
+                /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2.5 text-xs text-muted-foreground", children: [
+                  /* @__PURE__ */ jsxRuntimeExports.jsx(Shield, { className: "w-3.5 h-3.5 text-primary shrink-0" }),
+                  /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "Zero plaintext passwords or personal phone tracking" })
+                ] })
+              ] })
+            ] })
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "lg:col-span-6 space-y-4", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "bg-card/70 border border-border/80 rounded-2xl p-6 sm:p-8 backdrop-blur-sm", children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-foreground font-display font-semibold text-lg mb-1", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsx(Database, { className: "w-5 h-5 text-primary" }),
+            /* @__PURE__ */ jsxRuntimeExports.jsx("h2", { children: "Where is your login info stored?" })
+          ] }),
+          /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-xs text-muted-foreground mb-6", children: "Complete architectural transparency on how authentication credentials and session data are stored." }),
+          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "space-y-4 text-xs", children: [
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-3.5 rounded-xl border border-border/70 bg-muted/30 space-y-1.5", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-foreground font-medium", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(HardDrive, { className: "w-4 h-4 text-sky-400" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "1. Browser Storage (IndexedDB & LocalStorage)" })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-muted-foreground leading-relaxed pl-6", children: [
+                "Your cryptographic student session keypair is generated and stored locally in your browser's private ",
+                /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { className: "text-foreground", children: "IndexedDB" }),
+                " (",
+                /* @__PURE__ */ jsxRuntimeExports.jsx("code", { className: "bg-muted px-1 py-0.5 rounded font-mono", children: "auth-client-db" }),
+                ") and ",
+                /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { className: "text-foreground", children: "LocalStorage" }),
+                " (",
+                /* @__PURE__ */ jsxRuntimeExports.jsx("code", { className: "bg-muted px-1 py-0.5 rounded font-mono", children: "jee_student_key" }),
+                "). Clicking Sign Out immediately purges these keys from your device."
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-3.5 rounded-xl border border-border/70 bg-muted/30 space-y-1.5", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-foreground font-medium", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(KeyRound, { className: "w-4 h-4 text-amber-400" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "2. Local Usage Tracker (Rate Limits & History)" })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-muted-foreground leading-relaxed pl-6", children: [
+                "Your 50-query daily tracker (",
+                /* @__PURE__ */ jsxRuntimeExports.jsx("code", { className: "bg-muted px-1 py-0.5 rounded font-mono", children: "jee_logged_in_searches_{principal}" }),
+                ") and solved question history (",
+                /* @__PURE__ */ jsxRuntimeExports.jsx("code", { className: "bg-muted px-1 py-0.5 rounded font-mono", children: "jee_solver_history" }),
+                ") reside safely on your device in ",
+                /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { className: "text-foreground", children: "LocalStorage" }),
+                "."
+              ] })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-3.5 rounded-xl border border-border/70 bg-muted/30 space-y-1.5", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-foreground font-medium", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Cpu, { className: "w-4 h-4 text-emerald-400" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "3. Zero Plaintext Passwords / Cryptographic Identity" })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-muted-foreground leading-relaxed pl-6", children: "No password, email, or phone number is ever transmitted or stored on any centralized server. Sessions are signed cryptographically using Ed25519/WebAuthn public-key authentication." })
+            ] }),
+            /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "p-3.5 rounded-xl border border-border/70 bg-muted/30 space-y-1.5", children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-2 text-foreground font-medium", children: [
+                /* @__PURE__ */ jsxRuntimeExports.jsx(Lock, { className: "w-4 h-4 text-violet-400" }),
+                /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: "4. Cloudflare Edge API (AI Engine)" })
+              ] }),
+              /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-muted-foreground leading-relaxed pl-6", children: [
+                "The AI solver edge worker (",
+                /* @__PURE__ */ jsxRuntimeExports.jsx("code", { className: "bg-muted px-1 py-0.5 rounded font-mono", children: "functions/api/solve.js" }),
+                ") only applies an in-memory IP rate limiter to protect Gemini model quotas. It does not store user logins or sensitive credentials."
+              ] })
+            ] })
+          ] })
+        ] }) })
+      ] })
+    ] }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Footer$1, {})
+  ] });
+}
+const MarqueeStrip = reactExports.lazy(() => __vitePreload(() => import("./MarqueeStrip-TlsKY52r.js"), true ? [] : void 0));
+const FeaturesSection = reactExports.lazy(() => __vitePreload(() => import("./FeaturesSection-_bXUc2U4.js"), true ? __vite__mapDeps([0,1]) : void 0));
+const SubjectsSection = reactExports.lazy(() => __vitePreload(() => import("./SubjectsSection-Vjh54C49.js"), true ? __vite__mapDeps([2,3]) : void 0));
+const DashboardSection = reactExports.lazy(() => __vitePreload(() => import("./DashboardSection-PP8XAX3H.js"), true ? __vite__mapDeps([4,1]) : void 0));
+const PracticeSection = reactExports.lazy(() => __vitePreload(() => import("./PracticeSection-BH9wQbjk.js"), true ? __vite__mapDeps([5,3]) : void 0));
+const FutureSection = reactExports.lazy(() => __vitePreload(() => import("./FutureSection-BqzRae8s.js"), true ? __vite__mapDeps([6,3]) : void 0));
 const Footer = reactExports.lazy(() => __vitePreload(() => Promise.resolve().then(() => Footer$2), true ? void 0 : void 0));
 function HomePage() {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "min-h-screen bg-background text-foreground", children: [
@@ -43655,7 +44148,12 @@ const privacyRoute = createRoute({
   path: "/privacy-policy",
   component: PrivacyPolicy
 });
-const routeTree = rootRoute.addChildren([homeRoute, privacyRoute]);
+const loginRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/login",
+  component: LoginPage
+});
+const routeTree = rootRoute.addChildren([homeRoute, privacyRoute, loginRoute]);
 const router = createRouter({ routeTree });
 function App() {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(RouterProvider, { router });
