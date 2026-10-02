@@ -1,5 +1,5 @@
 import { Brain, Heart } from "lucide-react";
-import { SiDiscord, SiGithub, SiX } from "react-icons/si";
+import { SiGithub, SiX } from "react-icons/si";
 
 const platformLinks = [
   { label: "Features", href: "#features" },
@@ -15,9 +15,8 @@ const subjectLinks = [
 ];
 
 const socialLinks = [
-  { label: "GitHub", href: "#", Icon: SiGithub },
-  { label: "Discord", href: "#", Icon: SiDiscord },
-  { label: "Twitter", href: "#", Icon: SiX },
+  { label: "X (Twitter)", href: "https://x.com/Dakshesh850051", Icon: SiX },
+  { label: "GitHub", href: "https://github.com/dakshesh123-rgb", Icon: SiGithub },
 ];
 
 export default function Footer() {
@@ -128,6 +127,29 @@ export default function Footer() {
               Privacy Policy
             </a>
           </div>
+
+          {/* Social Icons in bottom bar */}
+          <div className="flex items-center gap-3">
+            <a
+              href="https://x.com/Dakshesh850051"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="X (Twitter)"
+              className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors"
+            >
+              <SiX className="w-4 h-4" />
+            </a>
+            <a
+              href="https://github.com/dakshesh123-rgb"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors"
+            >
+              <SiGithub className="w-4 h-4" />
+            </a>
+          </div>
+
           <p className="text-xs text-muted-foreground flex items-center gap-1.5">
             Made with <Heart className="w-3 h-3 text-red-500 inline fill-current animate-pulse" /> for JEE Aspirants
           </p>
