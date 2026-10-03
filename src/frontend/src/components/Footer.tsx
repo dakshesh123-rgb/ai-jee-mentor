@@ -1,5 +1,5 @@
 import { Brain, Heart } from "lucide-react";
-import { SiGithub, SiX } from "react-icons/si";
+import { SiGithub } from "react-icons/si";
 
 const platformLinks = [
   { label: "Features", href: "#features" },
@@ -15,7 +15,6 @@ const subjectLinks = [
 ];
 
 const socialLinks = [
-  { label: "X (Twitter)", href: "https://x.com/Dakshesh850051", Icon: SiX },
   { label: "GitHub", href: "https://github.com/dakshesh123-rgb", Icon: SiGithub },
 ];
 
@@ -130,15 +129,6 @@ export default function Footer() {
 
           {/* Social Icons in bottom bar */}
           <div className="flex items-center gap-3">
-            <a
-              href="https://x.com/Dakshesh850051"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="X (Twitter)"
-              className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-white/5 transition-colors"
-            >
-              <SiX className="w-4 h-4" />
-            </a>
             <a
               href="https://github.com/dakshesh123-rgb"
               target="_blank"
