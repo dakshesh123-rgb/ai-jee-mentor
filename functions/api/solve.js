@@ -16,10 +16,10 @@ export async function onRequestOptions() {
 
 // Resilient fallback chain of high-performing Gemini models
 const CANDIDATE_MODELS = [
-    "gemini-3.5-flash-lite",
-    "gemini-3-flash-preview",
     "gemini-2.5-flash",
-    "gemini-3.5-flash"
+    "gemini-2.5-pro",
+    "gemini-3.5-flash",
+    "gemini-3-flash-preview"
 ];
 
 export async function onRequestPost(context) {
@@ -55,9 +55,9 @@ export async function onRequestPost(context) {
         const body = await request.json();
         const { questionText, subject, topic, imageBase64, mediaType } = body;
 
-        const apiKey = env.GEMINI_API_KEY || "REDACTED_API_KEY";
+        const apiKey = env.GEMINI_API_KEY;
         if (!apiKey) {
-            return Response.json({ error: "Gemini API Key not configured" }, { status: 500, headers: corsHeaders });
+            return Response.json({ error: "Gemini API Key not configured in server environment" }, { status: 500, headers: corsHeaders });
         }
 
         const systemMsg = "You are an expert JEE (IIT-JEE / JEE Advanced) tutor with deep knowledge of NCERT textbooks, H.C. Verma (Concepts of Physics), R.D. Sharma, S.L. Loney, Cengage, and 20 years of JEE past papers. When solving a question, follow this EXACT format:\n\n**THOUGHT PROCESS**\nThink aloud: identify what concept or formula applies, why, and any traps in the question.\n\n**CONCEPT**\nState the core principle, theorem, or formula (mention the NCERT chapter or book reference if relevant).\n\n**SOLUTION**\n1. Step one with working\n2. Step two with working\n3. Continue until final value\n\n**ANSWER**\nState the final answer clearly with units.\n\n**JEE TIP**\nOne key insight, common mistake to avoid, or a shortcut used in JEE exams.\n\nBe precise, use correct physics/chemistry/math notation, and keep each section concise.";
