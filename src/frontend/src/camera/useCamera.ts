@@ -64,18 +64,44 @@ export const useCamera = (config: CameraConfig = {}) => {
 
   const createMediaStream = useCallback(
     async (facing: "user" | "environment") => {
+      if (!navigator.mediaDevices?.getUserMedia) {
+        throw {
+          type: "not-supported",
+          message: "Camera is not supported on this browser or connection (requires HTTPS).",
+        };
+      }
+
+      let stream: MediaStream | null = null;
       try {
-        const constraints = {
+        const constraints: MediaStreamConstraints = {
           video: {
-            facingMode: facing,
+            facingMode: { ideal: facing },
             width: { ideal: width },
             height: { ideal: height },
           },
         };
 
-        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        stream = await navigator.mediaDevices.getUserMedia(constraints);
+      } catch (firstErr: any) {
+        // If facingMode or ideal resolution fails (common on PCs/laptops or certain mobile webviews), fallback to basic video
+        if (
+          firstErr.name === "OverconstrainedError" ||
+          firstErr.name === "ConstraintNotSatisfiedError" ||
+          firstErr.name === "NotFoundError" ||
+          firstErr.name === "TypeError"
+        ) {
+          try {
+            stream = await navigator.mediaDevices.getUserMedia({ video: true });
+          } catch (fallbackErr) {
+            throw firstErr;
+          }
+        } else {
+          throw firstErr;
+        }
+      }
 
-        if (!isMountedRef.current) {
+      try {
+        if (!isMountedRef.current && stream) {
           for (const track of stream.getTracks()) {
             track.stop();
           }
@@ -87,15 +113,15 @@ export const useCamera = (config: CameraConfig = {}) => {
         let errorType: CameraError["type"] = "unknown";
         let errorMessage = "Failed to access camera";
 
-        if (err.name === "NotAllowedError") {
+        if (err.name === "NotAllowedError" || err.name === "PermissionDeniedError") {
           errorType = "permission";
-          errorMessage = "Camera permission denied";
-        } else if (err.name === "NotFoundError") {
+          errorMessage = "Camera permission was denied. Tap the lock/tune icon in your browser address bar to allow camera access, or use the Upload Photo option.";
+        } else if (err.name === "NotFoundError" || err.name === "DevicesNotFoundError") {
           errorType = "not-found";
-          errorMessage = "No camera device found";
-        } else if (err.name === "NotSupportedError") {
+          errorMessage = "No camera device found on this system.";
+        } else if (err.name === "NotSupportedError" || err.name === "SecurityError") {
           errorType = "not-supported";
-          errorMessage = "Camera is not supported";
+          errorMessage = "Camera access is restricted or not supported by this browser.";
         }
 
         throw { type: errorType, message: errorMessage };

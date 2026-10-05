@@ -17,6 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useActor } from "@/hooks/useActor";
 import { useInternetIdentity } from "@/hooks/useInternetIdentity";
 import {
+  AlertCircle,
   BookOpen,
   Camera,
   CheckCircle,
@@ -25,8 +26,10 @@ import {
   FlipHorizontal,
   Lightbulb,
   Loader2,
+  RefreshCw,
   Sparkles,
   Trash2,
+  Upload,
   X,
   Zap,
   LogIn,
@@ -746,6 +749,19 @@ export default function SolverSection() {
   const [showLoginLimitModal, setShowLoginLimitModal] = useState(false);
   const [showDailyLimitModal, setShowDailyLimitModal] = useState(false);
   const answerRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      const newImages = Array.from(files).map((file) => ({
+        id: `img-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`,
+        file,
+      }));
+      setCapturedImages((prev) => [...prev, ...newImages]);
+      e.target.value = "";
+    }
+  };
 
   useEffect(() => {
     if (aiResponse && answerRef.current) {
@@ -1081,18 +1097,37 @@ export default function SolverSection() {
             </div>
           )}
 
+          <input
+            type="file"
+            ref={fileInputRef}
+            accept="image/*"
+            multiple
+            onChange={handleFileUpload}
+            className="hidden"
+          />
+
           <div className="flex flex-col sm:flex-row gap-3 mb-6">
             {isSupported && (
               <button
                 type="button"
                 data-ocid="solver.open_modal_button"
                 onClick={handleOpenCamera}
-                className="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border/60 hover:border-primary/50 hover:bg-primary/5 transition-all text-sm text-muted-foreground hover:text-foreground"
+                className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-border/60 hover:border-primary/50 hover:bg-primary/5 transition-all text-sm text-muted-foreground hover:text-foreground"
               >
                 <Camera className="w-4 h-4" />
                 Take Photo
               </button>
             )}
+
+            <button
+              type="button"
+              data-ocid="solver.upload_button"
+              onClick={() => fileInputRef.current?.click()}
+              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg border border-border/60 hover:border-primary/50 hover:bg-primary/5 transition-all text-sm text-muted-foreground hover:text-foreground"
+            >
+              <Upload className="w-4 h-4" />
+              Upload Image
+            </button>
 
             <Select
               value={subject}
@@ -1243,9 +1278,49 @@ export default function SolverSection() {
             {cameraError && (
               <div
                 data-ocid="solver.error_state"
-                className="p-3 rounded-lg bg-destructive/10 border border-destructive/30 text-destructive text-sm"
+                className="p-4 rounded-xl bg-destructive/10 border border-destructive/30 text-foreground text-sm flex flex-col gap-3"
               >
-                {cameraError.message}
+                <div className="flex items-start gap-2.5 text-destructive font-medium">
+                  <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+                  <span>{cameraError.message}</span>
+                </div>
+
+                {cameraError.type === "permission" && (
+                  <div className="text-xs text-muted-foreground bg-background/70 p-3 rounded-lg border border-border/50 space-y-1.5">
+                    <p className="font-semibold text-foreground">How to allow camera in your browser:</p>
+                    <ol className="list-decimal list-inside space-y-1">
+                      <li>Tap the <strong>lock 🔒</strong> or <strong>settings icon</strong> in your browser&apos;s address bar.</li>
+                      <li>Find <strong>Permissions</strong> → <strong>Camera</strong>.</li>
+                      <li>Change from <em>Blocked</em> to <strong>Allow</strong>.</li>
+                      <li>Tap <strong>Try Again</strong> below, or tap <strong>Upload Photo Instead</strong>.</li>
+                    </ol>
+                  </div>
+                )}
+
+                <div className="flex flex-wrap items-center gap-2 pt-1">
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={() => startCamera()}
+                    className="flex items-center gap-1.5 text-xs"
+                  >
+                    <RefreshCw className="w-3.5 h-3.5" />
+                    Try Again
+                  </Button>
+                  <Button
+                    type="button"
+                    size="sm"
+                    onClick={() => {
+                      handleCloseCamera();
+                      fileInputRef.current?.click();
+                    }}
+                    className="flex items-center gap-1.5 text-xs bg-primary text-primary-foreground hover:bg-primary/90"
+                  >
+                    <Upload className="w-3.5 h-3.5" />
+                    Upload Photo Instead
+                  </Button>
+                </div>
               </div>
             )}
 
@@ -1261,17 +1336,19 @@ export default function SolverSection() {
               </div>
             )}
 
-            <div className="relative rounded-xl overflow-hidden bg-black aspect-video w-full">
-              <video
-                ref={videoRef}
-                autoPlay
-                playsInline
-                muted
-                className="w-full h-full object-cover"
-                style={{ width: "100%", height: "100%", minHeight: 240 }}
-              />
-              <canvas ref={canvasRef} style={{ display: "none" }} />
-            </div>
+            {!cameraError && (
+              <div className="relative rounded-xl overflow-hidden bg-black aspect-video w-full">
+                <video
+                  ref={videoRef}
+                  autoPlay
+                  playsInline
+                  muted
+                  className="w-full h-full object-cover"
+                  style={{ width: "100%", height: "100%", minHeight: 240 }}
+                />
+                <canvas ref={canvasRef} style={{ display: "none" }} />
+              </div>
+            )}
 
             <div className="flex items-center gap-3">
               {isActive && isMobile && (
