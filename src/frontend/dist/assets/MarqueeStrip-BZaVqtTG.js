@@ -1,4 +1,4 @@
-import { j as jsxRuntimeExports } from "./index-BHXp9kMy.js";
+import { j as jsxRuntimeExports } from "./index-BVy_Nmyw.js";
 const MARQUEE_ITEMS = [
   "Physics",
   "·",
